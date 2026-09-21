@@ -4,6 +4,12 @@ import PostCard from '@/components/public/PostCard';
 import Pagination from '@/components/public/Pagination';
 import { getPostsByContentType } from '@/lib/queries';
 import { contentTypeLabels, contentTypeDescriptions } from '@/lib/types';
+import {
+  CategoryPageTitle,
+  CategoryPageDescription,
+  CategoryPageCountBadge,
+  CategoryPageEmptyState,
+} from '@/components/public/CategoryPageHeading';
 
 const validContentTypes = ['bhajan', 'aarti', 'chalisa', 'mantra', 'stotra', 'article', 'festival'];
 
@@ -51,8 +57,6 @@ export default async function ContentTypePage({ params, searchParams }: Props) {
   const page = Math.max(1, parseInt(searchParams.page || '1', 10));
   const { posts, total, pages } = await getPostsByContentType(contentType, page, 12);
 
-  const label = contentTypeLabels[contentType] || contentType;
-  const description = contentTypeDescriptions[contentType] || '';
   const icon = categoryIcons[contentType] || '🕉';
 
   return (
@@ -68,13 +72,13 @@ export default async function ContentTypePage({ params, searchParams }: Props) {
             className="text-3xl sm:text-4xl font-bold mb-3"
             style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
           >
-            {label} संग्रह
+            <CategoryPageTitle slug={contentType} />
           </h1>
           <p
             className="text-base mb-3"
             style={{ fontFamily: 'var(--font-devanagari)', color: 'rgba(255,220,176,0.8)' }}
           >
-            {description}
+            <CategoryPageDescription slug={contentType} />
           </p>
           {total > 0 && (
             <span
@@ -86,7 +90,7 @@ export default async function ContentTypePage({ params, searchParams }: Props) {
                 border: '1px solid rgba(212,175,55,0.3)',
               }}
             >
-              कुल {total.toLocaleString('hi-IN')} {label}
+              <CategoryPageCountBadge slug={contentType} total={total} />
             </span>
           )}
         </div>
@@ -110,15 +114,7 @@ export default async function ContentTypePage({ params, searchParams }: Props) {
         ) : (
           <div className="py-24 text-center">
             <div className="text-5xl mb-4">{icon}</div>
-            <h2
-              className="text-xl font-bold mb-2"
-              style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
-            >
-              अभी कोई {label} उपलब्ध नहीं
-            </h2>
-            <p style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--color-text-muted)' }}>
-              जल्द ही {label} जोड़े जाएंगे। कृपया पुनः आएं।
-            </p>
+            <CategoryPageEmptyState slug={contentType} />
           </div>
         )}
       </div>

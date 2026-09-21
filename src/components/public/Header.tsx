@@ -3,22 +3,24 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
-
-const navItems = [
-  { label: 'होम', href: '/' },
-  { label: 'भजन', href: '/bhajan' },
-  { label: 'आरती', href: '/aarti' },
-  { label: 'चालीसा', href: '/chalisa' },
-  { label: 'मंत्र', href: '/mantra' },
-  { label: 'स्तोत्र', href: '/stotra' },
-  { label: 'भक्ति लेख', href: '/article' },
-  { label: 'त्योहार', href: '/festival' },
-];
+import { useTranslation, useLanguage } from '@/lib/i18n';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation();
+
+  const navItems = [
+    { label: t('nav', 'home'), href: '/' },
+    { label: t('nav', 'bhajan'), href: '/bhajan' },
+    { label: t('nav', 'aarti'), href: '/aarti' },
+    { label: t('nav', 'chalisa'), href: '/chalisa' },
+    { label: t('nav', 'mantra'), href: '/mantra' },
+    { label: t('nav', 'stotra'), href: '/stotra' },
+    { label: t('nav', 'article'), href: '/article' },
+    { label: t('nav', 'festival'), href: '/festival' },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -65,12 +67,12 @@ export default function Header() {
                 🕉 अखंड भक्ति सागर
               </span>
               <span className="text-xs hidden sm:block" style={{ color: '#FFCBA4', letterSpacing: '0.08em' }}>
-                भजन • आरती • चालीसा • मंत्र
+                {t('header', 'tagline')}
               </span>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="मुख्य नेविगेशन">
+            <nav className="hidden lg:flex items-center gap-1" aria-label={t('nav', 'mainNav')}>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -88,6 +90,8 @@ export default function Header() {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              <LanguageToggle />
+
               {searchOpen ? (
                 <div className="hidden sm:block">
                   <SearchBar onClose={() => setSearchOpen(false)} autoFocus />
@@ -95,7 +99,7 @@ export default function Header() {
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}
-                  aria-label="खोज खोलें"
+                  aria-label={t('header', 'openSearch')}
                   className="p-2 rounded-full transition-colors hover:bg-white/10"
                   style={{ color: '#FFD700' }}
                 >
@@ -109,7 +113,7 @@ export default function Header() {
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="lg:hidden p-2 rounded-md transition-colors hover:bg-white/10"
-                aria-label={menuOpen ? 'मेनू बंद करें' : 'मेनू खोलें'}
+                aria-label={menuOpen ? t('header', 'closeMenu') : t('header', 'openMenu')}
                 aria-expanded={menuOpen}
                 style={{ color: '#FFD700' }}
               >
@@ -144,7 +148,7 @@ export default function Header() {
             </span>
             <button
               onClick={() => setMenuOpen(false)}
-              aria-label="बंद करें"
+              aria-label={t('header', 'close')}
               className="p-2"
               style={{ color: '#FFD700' }}
             >
@@ -173,7 +177,7 @@ export default function Header() {
           </nav>
 
           <div className="px-6 py-6 text-center" style={{ color: 'rgba(255,220,176,0.5)', fontSize: '0.8rem', fontFamily: 'var(--font-devanagari)' }}>
-            ॐ नमः शिवाय • हरे कृष्ण • जय माता दी
+            {t('header', 'footerMantra')}
           </div>
         </div>
       )}
@@ -181,5 +185,43 @@ export default function Header() {
       {/* Spacer for fixed header */}
       <div className="h-16 pt-[env(safe-area-inset-top,0px)]" aria-hidden="true" />
     </>
+  );
+}
+
+function LanguageToggle() {
+  const { lang, setLang } = useLanguage();
+  const { t } = useTranslation();
+
+  return (
+    <div
+      role="group"
+      aria-label={t('header', 'language')}
+      className="flex items-center rounded-full overflow-hidden text-xs font-semibold"
+      style={{ border: '1px solid rgba(212,175,55,0.4)' }}
+    >
+      <button
+        onClick={() => setLang('hi')}
+        aria-pressed={lang === 'hi'}
+        className="px-2.5 py-1.5 transition-colors"
+        style={{
+          background: lang === 'hi' ? '#D4AF37' : 'transparent',
+          color: lang === 'hi' ? '#2D0A0A' : '#FFDDB0',
+          fontFamily: 'var(--font-devanagari)',
+        }}
+      >
+        हिं
+      </button>
+      <button
+        onClick={() => setLang('en')}
+        aria-pressed={lang === 'en'}
+        className="px-2.5 py-1.5 transition-colors"
+        style={{
+          background: lang === 'en' ? '#D4AF37' : 'transparent',
+          color: lang === 'en' ? '#2D0A0A' : '#FFDDB0',
+        }}
+      >
+        EN
+      </button>
+    </div>
   );
 }

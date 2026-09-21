@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from '@/lib/i18n';
 
 interface PaginationProps {
   currentPage: number;
@@ -7,6 +10,8 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, baseUrl }: PaginationProps) {
+  const { t } = useTranslation();
+
   if (totalPages <= 1) return null;
 
   const makeHref = (page: number) =>
@@ -26,7 +31,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
   }
 
   return (
-    <nav aria-label="पृष्ठ नेविगेशन" className="flex justify-center items-center gap-1 flex-wrap py-8">
+    <nav aria-label={t('pagination', 'nav')} className="flex justify-center items-center gap-1 flex-wrap py-8">
       {/* Prev */}
       {currentPage > 1 ? (
         <Link
@@ -38,9 +43,9 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
             color: 'var(--deep-orange)',
             border: '1px solid rgba(255,107,0,0.2)',
           }}
-          aria-label="पिछला पृष्ठ"
+          aria-label={t('pagination', 'prevAria')}
         >
-          ← पिछला
+          {t('pagination', 'prev')}
         </Link>
       ) : (
         <span
@@ -52,7 +57,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
           }}
           aria-disabled="true"
         >
-          ← पिछला
+          {t('pagination', 'prev')}
         </span>
       )}
 
@@ -66,7 +71,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
           <Link
             key={page}
             href={makeHref(page)}
-            aria-label={`पृष्ठ ${page}`}
+            aria-label={`${t('pagination', 'page')} ${page}`}
             aria-current={page === currentPage ? 'page' : undefined}
             className="w-10 h-10 flex items-center justify-center rounded-lg text-sm font-semibold transition-all"
             style={
@@ -95,9 +100,9 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
             color: 'var(--deep-orange)',
             border: '1px solid rgba(255,107,0,0.2)',
           }}
-          aria-label="अगला पृष्ठ"
+          aria-label={t('pagination', 'nextAria')}
         >
-          अगला →
+          {t('pagination', 'next')}
         </Link>
       ) : (
         <span
@@ -108,7 +113,7 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
           }}
           aria-disabled="true"
         >
-          अगला →
+          {t('pagination', 'next')}
         </span>
       )}
     </nav>

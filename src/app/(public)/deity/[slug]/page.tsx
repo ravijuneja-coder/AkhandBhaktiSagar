@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import PostCard from '@/components/public/PostCard';
 import Pagination from '@/components/public/Pagination';
-import Breadcrumb from '@/components/public/Breadcrumb';
 import { getDeityBySlug, getDeityPosts } from '@/lib/queries';
+import { DeityBreadcrumb, DeityTotalBadge, DeityNoPostsState } from '@/components/public/DeityDetailExtras';
 
 interface Props {
   params: { slug: string };
@@ -45,7 +45,7 @@ export default async function DeityPage({ params, searchParams }: Props) {
     <div style={{ background: 'var(--color-bg-primary)', minHeight: '80vh' }}>
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <Breadcrumb items={[{ label: 'देवी-देवता', href: '/deity' }, { label: name }]} />
+        <DeityBreadcrumb name={name} />
       </div>
 
       {/* Deity header */}
@@ -88,7 +88,7 @@ export default async function DeityPage({ params, searchParams }: Props) {
                 border: '1px solid rgba(212,175,55,0.3)',
               }}
             >
-              कुल {total.toLocaleString('hi-IN')} रचनाएँ
+              <DeityTotalBadge total={total} />
             </span>
           )}
         </div>
@@ -108,15 +108,7 @@ export default async function DeityPage({ params, searchParams }: Props) {
         ) : (
           <div className="py-24 text-center">
             <div className="text-5xl mb-4">🕉</div>
-            <h2
-              className="text-xl font-bold mb-2"
-              style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
-            >
-              अभी कोई भजन उपलब्ध नहीं
-            </h2>
-            <p style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--color-text-muted)' }}>
-              {name} के भजन जल्द ही जोड़े जाएंगे।
-            </p>
+            <DeityNoPostsState name={name} />
           </div>
         )}
       </div>

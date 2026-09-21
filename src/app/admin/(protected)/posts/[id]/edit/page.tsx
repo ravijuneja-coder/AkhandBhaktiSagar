@@ -1,24 +1,19 @@
 import { notFound } from 'next/navigation';
 import { getAuthenticatedSession } from '@/lib/auth';
 import PostForm from '@/components/admin/PostForm';
+import prisma from '@/lib/prisma';
 
 interface Props {
   params: { id: string };
 }
 
 async function getPost(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  try {
-    const res = await fetch(`${baseUrl}/api/admin/posts/${id}`, {
-      cache: 'no-store',
-      headers: { Cookie: '' }, // server-side fetch — session handled via auth
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.post;
-  } catch {
-    return null;
-  }
+  const post = await prisma.post.findUnique({
+    where: { id },
+    include: { category: true, deity: true, author: { select: { email: true, name: true } } },
+  });
+  if (!post) return null;
+  return { ...post, shortDescription: post.description };
 }
 
 export async function generateMetadata({ params }: Props) {

@@ -35,7 +35,7 @@ export const contentTypeToUrl: Record<ContentTypeEnum, string> = {
   KATHA: 'katha',
 };
 
-/** Human-readable Hindi labels for URL slugs */
+/** Human-readable Hindi labels for URL slugs (default / backward-compatible) */
 export const contentTypeLabels: Record<string, string> = {
   bhajan: 'भजन',
   aarti: 'आरती',
@@ -48,6 +48,22 @@ export const contentTypeLabels: Record<string, string> = {
   katha: 'कथा',
 };
 
+/** Human-readable labels for URL slugs, per language */
+export const contentTypeLabelsByLang: { hi: Record<string, string>; en: Record<string, string> } = {
+  hi: contentTypeLabels,
+  en: {
+    bhajan: 'Bhajan',
+    aarti: 'Aarti',
+    chalisa: 'Chalisa',
+    mantra: 'Mantra',
+    stotra: 'Stotra',
+    'bhakti-geet': 'Bhakti Geet',
+    article: 'Articles',
+    festival: 'Festivals',
+    katha: 'Katha',
+  },
+};
+
 export const contentTypeDescriptions: Record<string, string> = {
   bhajan: 'भगवान की स्तुति में गाए जाने वाले पवित्र गीत',
   aarti: 'पूजा के समय गाई जाने वाली आरतियाँ',
@@ -58,6 +74,21 @@ export const contentTypeDescriptions: Record<string, string> = {
   article: 'भक्ति और आध्यात्म पर लेख',
   festival: 'हिंदू त्योहारों की जानकारी',
   katha: 'धार्मिक कथाएँ और कहानियाँ',
+};
+
+export const contentTypeDescriptionsByLang: { hi: Record<string, string>; en: Record<string, string> } = {
+  hi: contentTypeDescriptions,
+  en: {
+    bhajan: 'Sacred songs sung in praise of God',
+    aarti: 'Aartis sung during worship',
+    chalisa: 'Hymns composed in forty verses',
+    mantra: 'Sacred mantras from the Vedas and scriptures',
+    stotra: 'Stotras composed in praise of deities',
+    'bhakti-geet': 'Songs of devotion and bhajan',
+    article: 'Articles on devotion and spirituality',
+    festival: 'Information about Hindu festivals',
+    katha: 'Religious stories and tales',
+  },
 };
 
 /** The valid URL slugs for content types shown in nav */

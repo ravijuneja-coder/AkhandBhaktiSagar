@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/lib/i18n';
 
 interface VideoPlayerProps {
   videoType?: string | null;
@@ -25,6 +26,7 @@ function getYouTubeEmbedUrl(url: string): string {
 export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: VideoPlayerProps) {
   const [loaded, setLoaded] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const { t } = useTranslation();
 
   if (!videoUrl && !embedCode) return null;
 
@@ -40,7 +42,7 @@ export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: V
             fontFamily: 'var(--font-devanagari)',
           }}
         >
-          🎵 वीडियो
+          {t('video', 'label')}
         </div>
         <div
           className="w-full"
@@ -71,7 +73,7 @@ export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: V
           borderBottom: '2px solid var(--gold)',
         }}
       >
-        ▶ वीडियो भजन
+        {t('video', 'bhajanVideo')}
       </div>
 
       {/* Video area */}
@@ -81,12 +83,12 @@ export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: V
           <button
             onClick={() => setPlaying(true)}
             className="absolute inset-0 w-full h-full flex items-center justify-center group"
-            aria-label={`${title || 'वीडियो'} चलाएं`}
+            aria-label={`${title || t('video', 'defaultTitle')} ${t('video', 'play')}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={thumbnailUrl}
-              alt={title || 'वीडियो थंबनेल'}
+              alt={title || t('video', 'thumbnail')}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.35)' }} />
@@ -102,7 +104,7 @@ export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: V
         ) : (
           <iframe
             src={playing ? `${embedUrl}&autoplay=1` : embedUrl}
-            title={title || 'भजन वीडियो'}
+            title={title || t('video', 'defaultBhajanTitle')}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="absolute inset-0 w-full h-full"

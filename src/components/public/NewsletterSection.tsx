@@ -1,17 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/lib/i18n';
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !email.includes('@')) {
       setStatus('error');
-      setMessage('कृपया एक वैध ईमेल पता दर्ज करें।');
+      setMessage(t('newsletter', 'invalidEmail'));
       return;
     }
 
@@ -25,16 +27,16 @@ export default function NewsletterSection() {
 
       if (res.ok) {
         setStatus('success');
-        setMessage('धन्यवाद! आप सफलतापूर्वक जुड़ गए हैं। भक्ति का आशीर्वाद आपके साथ हो! 🙏');
+        setMessage(t('newsletter', 'success'));
         setEmail('');
       } else {
         const data = await res.json().catch(() => ({}));
         setStatus('error');
-        setMessage(data.message || 'कुछ गलत हुआ। कृपया पुनः प्रयास करें।');
+        setMessage(data.message || t('newsletter', 'genericError'));
       }
     } catch {
       setStatus('error');
-      setMessage('नेटवर्क त्रुटि। कृपया पुनः प्रयास करें।');
+      setMessage(t('newsletter', 'networkError'));
     }
   };
 
@@ -59,13 +61,13 @@ export default function NewsletterSection() {
           className="text-2xl sm:text-3xl font-bold mb-3"
           style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700', textWrap: 'balance' }}
         >
-          नए भजन और आरती पाएं सीधे इनबॉक्स में
+          {t('newsletter', 'heading')}
         </h2>
         <p
           className="text-sm sm:text-base mb-8"
           style={{ fontFamily: 'var(--font-devanagari)', color: 'rgba(255,220,176,0.75)' }}
         >
-          रोज़ सुबह एक नया भजन या आरती आपके ईमेल पर। भक्ति में जुड़े रहें।
+          {t('newsletter', 'description')}
         </p>
 
         {status === 'success' ? (
@@ -84,14 +86,14 @@ export default function NewsletterSection() {
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
               <label htmlFor="newsletter-email" className="sr-only">
-                ईमेल पता
+                {t('newsletter', 'emailLabel')}
               </label>
               <input
                 id="newsletter-email"
                 type="email"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setStatus('idle'); }}
-                placeholder="आपका ईमेल पता..."
+                placeholder={t('newsletter', 'emailPlaceholder')}
                 required
                 className="w-full px-5 py-3.5 rounded-lg text-sm outline-none transition-all"
                 style={{
@@ -115,7 +117,7 @@ export default function NewsletterSection() {
                 whiteSpace: 'nowrap',
               }}
             >
-              {status === 'loading' ? 'प्रतीक्षा करें...' : 'सदस्य बनें 🙏'}
+              {status === 'loading' ? t('newsletter', 'subscribing') : t('newsletter', 'subscribe')}
             </button>
           </form>
         )}
@@ -135,7 +137,7 @@ export default function NewsletterSection() {
           className="mt-4 text-xs"
           style={{ color: 'rgba(255,220,176,0.5)', fontFamily: 'var(--font-devanagari)' }}
         >
-          हम आपकी जानकारी कभी साझा नहीं करेंगे। किसी भी समय सदस्यता रद्द करें।
+          {t('newsletter', 'privacy')}
         </p>
       </div>
     </section>

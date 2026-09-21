@@ -3,9 +3,9 @@ import HeroSection from '@/components/public/HeroSection';
 import PostCard from '@/components/public/PostCard';
 import CategoryCard from '@/components/public/CategoryCard';
 import DeityCard from '@/components/public/DeityCard';
-import NewsletterSection from '@/components/public/NewsletterSection';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
+import SectionHeading from '@/components/public/SectionHeading';
 import {
   getFeaturedPosts,
   getLatestPosts,
@@ -37,7 +37,7 @@ export default async function HomePage() {
         {nonEmptyCategories.length > 0 && (
           <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-6">
-              <h2 className="section-title text-xl sm:text-2xl">भक्ति श्रेणियाँ</h2>
+              <h2 className="section-title text-xl sm:text-2xl"><SectionHeading tKey="categoriesHeading" /></h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {nonEmptyCategories.map((cat) => (
@@ -56,13 +56,13 @@ export default async function HomePage() {
         {featured.length > 0 && (
           <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-6">
-              <h2 className="section-title text-xl sm:text-2xl">लोकप्रिय भजन</h2>
+              <h2 className="section-title text-xl sm:text-2xl"><SectionHeading tKey="popularBhajans" /></h2>
               <Link
                 href="/bhajan"
                 className="text-sm font-medium transition-colors hover:text-orange-600"
                 style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--deep-orange)' }}
               >
-                सभी देखें →
+                <SectionHeading tKey="viewAll" />
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -81,13 +81,13 @@ export default async function HomePage() {
           >
             <div className="max-w-7xl mx-auto">
               <div className="flex items-end justify-between mb-6">
-                <h2 className="section-title text-xl sm:text-2xl">देवी-देवता</h2>
+                <h2 className="section-title text-xl sm:text-2xl"><SectionHeading tKey="deitiesHeading" /></h2>
                 <Link
                   href="/deity"
                   className="text-sm font-medium transition-colors hover:text-orange-600"
                   style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--deep-orange)' }}
                 >
-                  सभी देखें →
+                  <SectionHeading tKey="viewAll" />
                 </Link>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
@@ -103,7 +103,7 @@ export default async function HomePage() {
         {latest.length > 0 && (
           <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-6">
-              <h2 className="section-title text-xl sm:text-2xl">नए भजन और आरती</h2>
+              <h2 className="section-title text-xl sm:text-2xl"><SectionHeading tKey="latestHeading" /></h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {latest.map((post) => (
@@ -121,16 +121,13 @@ export default async function HomePage() {
               className="text-2xl font-bold mb-3"
               style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
             >
-              जल्द ही उपलब्ध होगा
+              <SectionHeading tKey="comingSoonHeading" />
             </h2>
             <p style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--color-text-muted)' }}>
-              भजन, आरती और चालीसा जोड़ी जा रही हैं। शीघ्र आएं।
+              <SectionHeading tKey="comingSoonText" />
             </p>
           </section>
         )}
-
-        {/* Newsletter */}
-        <NewsletterSection />
       </main>
       <Footer />
     </>

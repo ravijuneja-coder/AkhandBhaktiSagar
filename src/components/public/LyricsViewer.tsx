@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/lib/i18n';
 
 interface LyricsViewerProps {
   lyrics: string;
@@ -10,6 +11,7 @@ interface LyricsViewerProps {
 export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
   const [copied, setCopied] = useState(false);
   const [fontSize, setFontSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const { t, lang } = useTranslation();
 
   const fontSizeMap = { sm: '1.05rem', md: '1.2rem', lg: '1.4rem' };
 
@@ -37,10 +39,10 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
     if (!printWindow) return;
     printWindow.document.write(`
       <!DOCTYPE html>
-      <html lang="hi">
+      <html lang="${lang}">
       <head>
         <meta charset="UTF-8">
-        <title>${title || 'भजन'}</title>
+        <title>${title || t('video', 'defaultBhajanTitle')}</title>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
         <style>
           body { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 14pt; line-height: 2; margin: 2cm; color: #1A0A00; }
@@ -74,12 +76,12 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
           className="text-sm font-semibold"
           style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
         >
-          📿 गीत / बोल
+          {t('lyrics', 'heading')}
         </span>
 
         <div className="flex items-center gap-2">
           {/* Font size */}
-          <div className="flex items-center gap-1" role="group" aria-label="अक्षर आकार">
+          <div className="flex items-center gap-1" role="group" aria-label={t('lyrics', 'fontSizeGroup')}>
             {(['sm', 'md', 'lg'] as const).map((s) => (
               <button
                 key={s}
@@ -90,7 +92,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
                   color: fontSize === s ? '#2D0A0A' : '#FFDDB0',
                   fontSize: s === 'sm' ? '0.7rem' : s === 'md' ? '0.85rem' : '1rem',
                 }}
-                aria-label={`${s === 'sm' ? 'छोटे' : s === 'md' ? 'मध्यम' : 'बड़े'} अक्षर`}
+                aria-label={`${s === 'sm' ? t('lyrics', 'small') : s === 'md' ? t('lyrics', 'medium') : t('lyrics', 'large')} ${t('lyrics', 'letterAria')}`}
                 aria-pressed={fontSize === s}
               >
                 अ
@@ -109,7 +111,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
               border: `1px solid ${copied ? '#16A34A' : 'rgba(212,175,55,0.3)'}`,
             }}
           >
-            {copied ? '✓ कॉपी हो गया' : '📋 कॉपी करें'}
+            {copied ? t('lyrics', 'copied') : t('lyrics', 'copy')}
           </button>
 
           {/* Print */}
@@ -123,7 +125,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
               border: '1px solid rgba(255,255,255,0.15)',
             }}
           >
-            🖨️ प्रिंट
+            {t('lyrics', 'print')}
           </button>
         </div>
       </div>
@@ -133,19 +135,49 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
         className="p-6 sm:p-8"
         style={{ background: 'linear-gradient(180deg, #FFFBF5, #FDF6EC)' }}
       >
-        <pre
-          className="whitespace-pre-wrap break-words"
-          style={{
-            fontFamily: 'var(--font-devanagari)',
-            fontSize: fontSizeMap[fontSize],
-            lineHeight: '2.2',
-            color: 'var(--color-text-primary)',
-            letterSpacing: '0.01em',
-          }}
-        >
-          {lyrics}
-        </pre>
+        {chunkLines(lyrics, 4).map((chunk, i) => (
+          <pre
+            key={i}
+            className="whitespace-pre-wrap break-words"
+            style={{
+              fontFamily: 'var(--font-devanagari)',
+              fontSize: fontSizeMap[fontSize],
+              lineHeight: '2.2',
+              color: 'var(--color-text-primary)',
+              letterSpacing: '0.01em',
+              marginBottom: chunk.endsWith('\n') ? 0 : '20px',
+            }}
+          >
+            {chunk.replace(/\n$/, '')}
+          </pre>
+        ))}
       </div>
     </div>
   );
+}
+
+// Chunks lyrics into groups of `size` non-blank lines, adding a 20px gap
+// after each group — unless the source already has a blank line there.
+function chunkLines(text: string, size: number): string[] {
+  const lines = text.split('\n');
+  const chunks: string[] = [];
+  let current: string[] = [];
+
+  const flush = (followedByBlank: boolean) => {
+    if (current.length === 0) return;
+    chunks.push(current.join('\n') + (followedByBlank ? '\n' : ''));
+    current = [];
+  };
+
+  for (const line of lines) {
+    if (line.trim() === '') {
+      flush(true);
+      continue;
+    }
+    current.push(line);
+    if (current.length === size) flush(false);
+  }
+  flush(false);
+
+  return chunks;
 }

@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
-import { contentTypeLabels, contentTypeDescriptions, contentTypeToUrl } from '@/lib/types';
+import { contentTypeLabelsByLang, contentTypeDescriptionsByLang, contentTypeToUrl } from '@/lib/types';
 import { ContentType } from '@prisma/client';
+import { useLanguage } from '@/lib/i18n';
 
 const categoryIcons: Record<string, string> = {
   bhajan: '🎵',
@@ -33,10 +36,11 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ contentType, count }: CategoryCardProps) {
+  const { lang } = useLanguage();
   // Normalize: if it's a Prisma enum value (uppercase), convert to URL slug
   const slug = contentTypeToUrl[contentType as ContentType] ?? contentType.toLowerCase().replace('_', '-');
-  const label = contentTypeLabels[slug] || slug;
-  const description = contentTypeDescriptions[slug] || '';
+  const label = contentTypeLabelsByLang[lang][slug] || slug;
+  const description = contentTypeDescriptionsByLang[lang][slug] || '';
   const icon = categoryIcons[slug] || '🕉';
   const colors = categoryColors[slug] || { bg: 'rgba(255,107,0,0.08)', text: '#CC4400', border: 'rgba(255,107,0,0.2)' };
   const href = `/${slug}`;
@@ -72,7 +76,7 @@ export default function CategoryCard({ contentType, count }: CategoryCardProps) 
               className="text-xs font-medium px-2 py-0.5 rounded-full"
               style={{ background: colors.border, color: colors.text }}
             >
-              {count.toLocaleString('hi-IN')}
+              {count.toLocaleString(lang === 'hi' ? 'hi-IN' : 'en-IN')}
             </span>
           </div>
           <p

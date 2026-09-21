@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useTranslation } from '@/lib/i18n';
 
 interface ShareButtonsProps {
   title: string;
@@ -9,9 +10,17 @@ interface ShareButtonsProps {
 
 export default function ShareButtons({ title, url: propUrl }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
-  const url = propUrl || (typeof window !== 'undefined' ? window.location.href : '');
+  const [clientUrl, setClientUrl] = useState('');
+  const [canNativeShare, setCanNativeShare] = useState(false);
+  const { t } = useTranslation();
+  const url = propUrl || clientUrl;
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
+
+  useEffect(() => {
+    if (!propUrl) setClientUrl(window.location.href);
+    setCanNativeShare(typeof navigator.share === 'function');
+  }, [propUrl]);
 
   const handleNativeShare = async () => {
     if (typeof navigator !== 'undefined' && navigator.share) {
@@ -79,11 +88,11 @@ export default function ShareButtons({ title, url: propUrl }: ShareButtonsProps)
         className="text-sm font-semibold mb-3"
         style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
       >
-        साझा करें
+        {t('share', 'share')}
       </p>
       <div className="flex flex-wrap gap-2 items-center">
         {/* Native share (mobile) */}
-        {typeof navigator !== 'undefined' && 'share' in navigator && (
+        {canNativeShare && (
           <button
             onClick={handleNativeShare}
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-90 hover:shadow-md"
@@ -93,7 +102,7 @@ export default function ShareButtons({ title, url: propUrl }: ShareButtonsProps)
               color: '#fff',
             }}
           >
-            ↗ शेयर करें
+            {t('share', 'nativeShare')}
           </button>
         )}
 
@@ -103,7 +112,7 @@ export default function ShareButtons({ title, url: propUrl }: ShareButtonsProps)
             href={btn.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${btn.label} पर शेयर करें`}
+            aria-label={`${t('share', 'shareOn')} ${btn.label}`}
             className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:opacity-90 hover:shadow-md"
             style={{ background: btn.bg, color: btn.color }}
           >
@@ -122,12 +131,12 @@ export default function ShareButtons({ title, url: propUrl }: ShareButtonsProps)
             color: copied ? '#fff' : 'var(--maroon)',
             border: `1px solid ${copied ? '#16A34A' : 'rgba(123,27,27,0.2)'}`,
           }}
-          aria-label="लिंक कॉपी करें"
+          aria-label={t('share', 'copyLink')}
         >
           {copied ? (
-            <>✓ <span className="hidden sm:inline">कॉपी हो गया</span></>
+            <>✓ <span className="hidden sm:inline">{t('share', 'copied')}</span></>
           ) : (
-            <>🔗 <span className="hidden sm:inline">लिंक कॉपी करें</span></>
+            <>🔗 <span className="hidden sm:inline">{t('share', 'copyLink')}</span></>
           )}
         </button>
       </div>

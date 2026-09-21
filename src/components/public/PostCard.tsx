@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { contentTypeLabels, contentTypeToUrl } from '@/lib/types';
+import { contentTypeToUrl } from '@/lib/types';
 import { ContentType } from '@prisma/client';
+import CategoryLabel from './CategoryLabel';
+import ReadMoreLabel from './ReadMoreLabel';
+import DeitySymbol from './DeitySymbol';
 
 interface PostCardDeity {
   id?: string;
@@ -43,7 +46,6 @@ export default function PostCard({ post }: PostCardProps) {
   // Map ContentType enum (BHAJAN) to URL slug (bhajan)
   const ctUrl = contentTypeToUrl[post.contentType as ContentType] ?? post.contentType.toString().toLowerCase();
   const href = `/${ctUrl}/${post.slug}`;
-  const label = contentTypeLabels[ctUrl] || post.contentType.toString();
   const dateStr = formatDate(post.publishedAt || post.createdAt);
 
   return (
@@ -59,13 +61,23 @@ export default function PostCard({ post }: PostCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div
-            className="w-full h-full flex items-center justify-center text-4xl"
-            style={{ background: 'linear-gradient(135deg, #7B1B1B, #E85D04)' }}
-            aria-hidden="true"
-          >
-            🕉
-          </div>
+          <>
+            <DeitySymbol slug={post.deity?.slug} />
+            <div
+              className="absolute inset-0 flex items-end"
+              style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)' }}
+              aria-hidden="true"
+            >
+              {post.deity && (
+                <span
+                  className="px-3 py-2 text-sm font-bold"
+                  style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
+                >
+                  {post.deity.nameHindi || post.deity.name}
+                </span>
+              )}
+            </div>
+          </>
         )}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -78,7 +90,7 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Badges */}
         <div className="flex flex-wrap gap-2 mb-3">
           <span className="badge-category" style={{ fontFamily: 'var(--font-devanagari)' }}>
-            {label}
+            <CategoryLabel slug={ctUrl} fallback={post.contentType.toString()} />
           </span>
           {post.deity && (
             <span className="badge-deity" style={{ fontFamily: 'var(--font-devanagari)' }}>
@@ -125,7 +137,7 @@ export default function PostCard({ post }: PostCardProps) {
               color: '#FFFFFF',
             }}
           >
-            पढ़ें →
+            <ReadMoreLabel />
           </Link>
         </div>
       </div>

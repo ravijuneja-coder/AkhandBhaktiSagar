@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from '@/lib/i18n';
 
 interface BreadcrumbItem {
   label: string;
@@ -10,13 +13,15 @@ interface BreadcrumbProps {
 }
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
+  const { t } = useTranslation();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://akhandbhaktisagar.com';
+  const homeLabel = t('breadcrumb', 'home');
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'होम', item: siteUrl },
+      { '@type': 'ListItem', position: 1, name: homeLabel, item: siteUrl },
       ...items.map((item, index) => ({
         '@type': 'ListItem',
         position: index + 2,
@@ -26,7 +31,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
     ],
   };
 
-  const allItems = [{ label: 'होम', href: '/' }, ...items];
+  const allItems = [{ label: homeLabel, href: '/' }, ...items];
 
   return (
     <>
@@ -35,7 +40,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <nav
-        aria-label="ब्रेडक्रंब"
+        aria-label={t('breadcrumb', 'nav')}
         className="flex flex-wrap items-center gap-1 text-sm py-2"
         style={{ fontFamily: 'var(--font-devanagari)' }}
       >

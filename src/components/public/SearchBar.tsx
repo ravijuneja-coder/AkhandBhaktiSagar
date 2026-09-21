@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from '@/lib/i18n';
 
 interface SearchBarProps {
   onClose?: () => void;
@@ -13,6 +14,7 @@ export default function SearchBar({ onClose, autoFocus, initialQuery = '' }: Sea
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (autoFocus) {
@@ -49,8 +51,8 @@ export default function SearchBar({ onClose, autoFocus, initialQuery = '' }: Sea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="भजन, आरती, चालीसा खोजें..."
-          aria-label="साइट खोज"
+          placeholder={t('search', 'placeholder')}
+          aria-label={t('search', 'ariaLabel')}
           className="w-full px-4 py-2.5 pr-10 rounded-lg text-sm outline-none transition-all"
           style={{
             fontFamily: 'var(--font-devanagari)',
@@ -65,7 +67,7 @@ export default function SearchBar({ onClose, autoFocus, initialQuery = '' }: Sea
             type="button"
             onClick={() => { setQuery(''); inputRef.current?.focus(); }}
             className="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-1"
-            aria-label="खोज साफ करें"
+            aria-label={t('search', 'clear')}
             style={{ color: 'rgba(255,220,176,0.6)' }}
           >
             ✕
@@ -82,7 +84,7 @@ export default function SearchBar({ onClose, autoFocus, initialQuery = '' }: Sea
           whiteSpace: 'nowrap',
         }}
       >
-        खोजें
+        {t('search', 'submit')}
       </button>
     </form>
   );

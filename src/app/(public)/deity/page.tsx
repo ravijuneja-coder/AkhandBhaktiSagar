@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import DeityCard from '@/components/public/DeityCard';
 import { getAllDeities } from '@/lib/queries';
+import { DeityPageTitle, DeityPageSubtitle, DeityPageEmptyState } from '@/components/public/DeityPageHeading';
 
 export const metadata: Metadata = {
   title: 'देवी-देवता',
@@ -25,13 +26,13 @@ export default async function DeitiesPage() {
             className="text-3xl sm:text-4xl font-bold mb-3"
             style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
           >
-            देवी-देवता
+            <DeityPageTitle />
           </h1>
           <p
             className="text-base"
             style={{ fontFamily: 'var(--font-devanagari)', color: 'rgba(255,220,176,0.8)' }}
           >
-            हिंदू देवी-देवताओं के भजन, आरती, चालीसा और स्तोत्र पढ़ें
+            <DeityPageSubtitle />
           </p>
         </div>
       </div>
@@ -47,15 +48,7 @@ export default async function DeitiesPage() {
         ) : (
           <div className="py-24 text-center">
             <div className="text-5xl mb-4">🕉</div>
-            <h2
-              className="text-xl font-bold mb-2"
-              style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
-            >
-              अभी कोई देवता उपलब्ध नहीं
-            </h2>
-            <p style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--color-text-muted)' }}>
-              जल्द ही देवताओं की जानकारी जोड़ी जाएगी।
-            </p>
+            <DeityPageEmptyState />
           </div>
         )}
       </div>

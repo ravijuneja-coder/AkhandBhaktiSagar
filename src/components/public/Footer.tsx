@@ -1,24 +1,7 @@
+'use client';
+
 import Link from 'next/link';
-
-const categoryLinks = [
-  { label: 'भजन', href: '/bhajan' },
-  { label: 'आरती', href: '/aarti' },
-  { label: 'चालीसा', href: '/chalisa' },
-  { label: 'मंत्र', href: '/mantra' },
-  { label: 'स्तोत्र', href: '/stotra' },
-  { label: 'भक्ति लेख', href: '/article' },
-  { label: 'त्योहार', href: '/festival' },
-  { label: 'देवी-देवता', href: '/deity' },
-];
-
-const importantLinks = [
-  { label: 'हमारे बारे में', href: '/about' },
-  { label: 'संपर्क करें', href: '/contact' },
-  { label: 'गोपनीयता नीति', href: '/privacy' },
-  { label: 'नियम और शर्तें', href: '/terms' },
-  { label: 'अस्वीकरण', href: '/disclaimer' },
-  { label: 'साइटमैप', href: '/sitemap.xml' },
-];
+import { useTranslation } from '@/lib/i18n';
 
 const socialLinks = [
   {
@@ -61,6 +44,27 @@ const socialLinks = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useTranslation();
+
+  const categoryLinks = [
+    { label: t('nav', 'bhajan'), href: '/bhajan' },
+    { label: t('nav', 'aarti'), href: '/aarti' },
+    { label: t('nav', 'chalisa'), href: '/chalisa' },
+    { label: t('nav', 'mantra'), href: '/mantra' },
+    { label: t('nav', 'stotra'), href: '/stotra' },
+    { label: t('nav', 'article'), href: '/article' },
+    { label: t('nav', 'festival'), href: '/festival' },
+    { label: t('nav', 'deity'), href: '/deity' },
+  ];
+
+  const importantLinks = [
+    { label: t('footer', 'about_us'), href: '/about' },
+    { label: t('footer', 'contact'), href: '/contact' },
+    { label: t('footer', 'privacyPolicy'), href: '/privacy' },
+    { label: t('footer', 'terms'), href: '/terms' },
+    { label: t('footer', 'disclaimer'), href: '/disclaimer' },
+    { label: t('footer', 'sitemap'), href: '/sitemap.xml' },
+  ];
 
   return (
     <footer style={{ background: 'linear-gradient(180deg, #2D0A0A 0%, #1A0505 100%)' }}>
@@ -88,7 +92,7 @@ export default function Footer() {
               🕉 अखंड भक्ति सागर
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: '#C8A07A', fontFamily: 'var(--font-devanagari)' }}>
-              भजन, आरती, चालीसा, मंत्र और स्तोत्र का पवित्र संग्रह। ईश्वर की भक्ति में अपना मन लगाएं।
+              {t('footer', 'about')}
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -119,7 +123,7 @@ export default function Footer() {
                 borderBottom: '2px solid rgba(212,175,55,0.3)',
               }}
             >
-              भक्ति श्रेणियाँ
+              {t('footer', 'categoriesHeading')}
             </h3>
             <ul className="space-y-2">
               {categoryLinks.map((link) => (
@@ -147,7 +151,7 @@ export default function Footer() {
                 borderBottom: '2px solid rgba(212,175,55,0.3)',
               }}
             >
-              महत्वपूर्ण लिंक
+              {t('footer', 'linksHeading')}
             </h3>
             <ul className="space-y-2">
               {importantLinks.map((link) => (
@@ -175,10 +179,10 @@ export default function Footer() {
                 borderBottom: '2px solid rgba(212,175,55,0.3)',
               }}
             >
-              आज का श्लोक
+              {t('footer', 'shlokaHeading')}
             </h3>
             <blockquote
-              className="text-sm leading-relaxed italic"
+              className="text-sm leading-relaxed italic whitespace-pre-line"
               style={{
                 fontFamily: 'var(--font-devanagari)',
                 color: '#D4AF37',
@@ -186,11 +190,10 @@ export default function Footer() {
                 paddingLeft: '1rem',
               }}
             >
-              यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।
-              अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥
+              {t('footer', 'shlokaText')}
             </blockquote>
             <p className="text-xs mt-2" style={{ color: '#8B6A4A', fontFamily: 'var(--font-devanagari)' }}>
-              — श्रीमद् भगवद्गीता ४.७
+              {t('footer', 'shlokaSource')}
             </p>
           </div>
         </div>
@@ -205,9 +208,9 @@ export default function Footer() {
           fontFamily: 'var(--font-devanagari)',
         }}
       >
-        © {year} अखंड भक्ति सागर। सर्वाधिकार सुरक्षित।{' '}
+        © {year} अखंड भक्ति सागर। {t('footer', 'rights')}{' '}
         <span style={{ color: '#FF6B00' }}>🕉</span>{' '}
-        भक्ति में बना, भक्ति के लिए।
+        {t('footer', 'madeWith')}
       </div>
     </footer>
   );

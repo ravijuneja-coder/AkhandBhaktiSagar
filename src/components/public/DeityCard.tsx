@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from '@/lib/i18n';
+import DeitySymbol from './DeitySymbol';
 
 interface Deity {
   id: string;
@@ -16,6 +20,9 @@ interface DeityCardProps {
 
 export default function DeityCard({ deity }: DeityCardProps) {
   const postCount = deity._count?.posts ?? 0;
+  const { t, lang } = useTranslation();
+  const primaryName = lang === 'en' ? deity.name : (deity.nameHindi || deity.name);
+  const secondaryName = lang === 'en' ? deity.nameHindi : deity.name;
 
   return (
     <Link
@@ -41,12 +48,7 @@ export default function DeityCard({ deity }: DeityCardProps) {
             sizes="80px"
           />
         ) : (
-          <div
-            className="w-full h-full flex items-center justify-center text-3xl"
-            style={{ background: 'linear-gradient(135deg, #FF6B00, #7B1B1B)' }}
-          >
-            🕉
-          </div>
+          <DeitySymbol slug={deity.slug} />
         )}
       </div>
 
@@ -55,11 +57,13 @@ export default function DeityCard({ deity }: DeityCardProps) {
         className="text-base font-bold mb-0.5 leading-tight"
         style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
       >
-        {deity.nameHindi || deity.name}
+        {primaryName}
       </h3>
-      <p className="text-xs mb-2" style={{ color: 'var(--color-text-muted)' }}>
-        {deity.name}
-      </p>
+      {secondaryName && secondaryName !== primaryName && (
+        <p className="text-xs mb-2" style={{ color: 'var(--color-text-muted)' }}>
+          {secondaryName}
+        </p>
+      )}
 
       {/* Count */}
       {postCount > 0 && (
@@ -72,7 +76,7 @@ export default function DeityCard({ deity }: DeityCardProps) {
             fontFamily: 'var(--font-devanagari)',
           }}
         >
-          {postCount} रचनाएँ
+          {postCount} {t('deityCard', 'compositions')}
         </span>
       )}
     </Link>
