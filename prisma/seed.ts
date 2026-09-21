@@ -190,6 +190,14 @@ async function main() {
         'सूर्य देव - प्रत्यक्ष देवता, प्रकाश और ऊर्जा के अधिष्ठाता। रविवार व्रत की अधिष्ठात्री देवता।',
       seoTitle: 'सूर्य देव - व्रत कथा, आरती, मंत्र | Akhand Bhakti Sagar',
     },
+    {
+      name: 'Lakshmi Mata',
+      nameHindi: 'माता लक्ष्मी',
+      slug: 'lakshmi-mata',
+      description:
+        'माता लक्ष्मी - धन, समृद्धि, ऐश्वर्य और सौभाग्य की देवी। दीपावली और शुक्रवार व्रत की अधिष्ठात्री देवी।',
+      seoTitle: 'माता लक्ष्मी - चालीसा, आरती, व्रत कथा | Akhand Bhakti Sagar',
+    },
   ];
 
   const deities: Record<string, string> = {};

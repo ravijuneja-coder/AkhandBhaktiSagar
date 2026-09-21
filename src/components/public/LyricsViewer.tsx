@@ -137,6 +137,29 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
       >
         {chunkLines(lyrics, 4).map((chunk, i) => {
           const text = chunk.replace(/\n$/, '');
+          if (isMarkerLine(text)) {
+            return (
+              <div
+                key={i}
+                className="flex items-center gap-3"
+                style={{ marginTop: i === 0 ? 0 : '32px', marginBottom: '20px' }}
+              >
+                <span style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.5))' }} />
+                <span
+                  className="font-bold text-center"
+                  style={{
+                    fontFamily: 'var(--font-devanagari)',
+                    fontSize: `calc(${fontSizeMap[fontSize]} * 1.05)`,
+                    color: 'var(--gold)',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  {text}
+                </span>
+                <span style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(212,175,55,0.5), transparent)' }} />
+              </div>
+            );
+          }
           if (isHeadingLine(text)) {
             return (
               <h3
@@ -186,6 +209,15 @@ function isHeadingLine(text: string): boolean {
   return /^\p{Extended_Pictographic}/u.test(trimmed);
 }
 
+// A short line wrapped in danda brackets, e.g. "॥ दोहा ॥" or "॥ चौपाई ॥",
+// is treated as a section marker (a different visual style from headings).
+function isMarkerLine(text: string): boolean {
+  if (text.includes('\n')) return false;
+  const trimmed = text.trim();
+  if (trimmed.length === 0 || trimmed.length > 40) return false;
+  return /^॥.*॥$/.test(trimmed);
+}
+
 // Chunks lyrics into groups of `size` non-blank lines, adding a 20px gap
 // after each group — unless the source already has a blank line there.
 function chunkLines(text: string, size: number): string[] {
@@ -204,13 +236,14 @@ function chunkLines(text: string, size: number): string[] {
       flush(true);
       continue;
     }
-    // Force a heading line to always stand alone as its own chunk,
-    // even mid-group, so it can render as a distinct <h3>.
-    if (isHeadingLine(line) && current.length > 0) {
+    // Force a heading/marker line to always stand alone as its own chunk,
+    // even mid-group, so it can render with its distinct style.
+    const isStandalone = isHeadingLine(line) || isMarkerLine(line);
+    if (isStandalone && current.length > 0) {
       flush(false);
     }
     current.push(line);
-    if (isHeadingLine(line) || current.length === size) flush(false);
+    if (isStandalone || current.length === size) flush(false);
   }
   flush(false);
 
