@@ -14,8 +14,11 @@ export default function Pagination({ currentPage, totalPages, baseUrl }: Paginat
 
   if (totalPages <= 1) return null;
 
-  const makeHref = (page: number) =>
-    page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
+  const makeHref = (page: number) => {
+    if (page === 1) return baseUrl;
+    const separator = baseUrl.includes('?') ? '&' : '?';
+    return `${baseUrl}${separator}page=${page}`;
+  };
 
   const pages: (number | '...')[] = [];
   if (totalPages <= 7) {

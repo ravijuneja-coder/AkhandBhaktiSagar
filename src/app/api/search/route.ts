@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
@@ -12,7 +13,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ results: [], pagination: { page, limit, total: 0, totalPages: 0 } });
   }
 
-  const where: Parameters<typeof prisma.post.findMany>[0]['where'] = {
+  const where: Prisma.PostWhereInput = {
     status: 'PUBLISHED',
     OR: [
       { title: { contains: q, mode: 'insensitive' } },

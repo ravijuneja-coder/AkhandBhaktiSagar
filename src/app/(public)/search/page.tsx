@@ -27,7 +27,12 @@ async function getSearchResults(q: string, page: number) {
       { cache: 'no-store' }
     )
     if (!res.ok) return { posts: [], total: 0, totalPages: 0 }
-    return res.json()
+    const data = await res.json()
+    return {
+      posts: data.results ?? [],
+      total: data.pagination?.total ?? 0,
+      totalPages: data.pagination?.totalPages ?? 0,
+    }
   } catch {
     return { posts: [], total: 0, totalPages: 0 }
   }
@@ -83,7 +88,7 @@ async function SearchResults({ q, page }: { q: string; page: number }) {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          basePath={`/search?q=${encodeURIComponent(q)}&page`}
+          baseUrl={`/search?q=${encodeURIComponent(q)}`}
         />
       )}
     </>
@@ -100,7 +105,7 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
       <div className="bg-gradient-to-r from-[#7B1B1B] to-[#E85D04] text-white py-10 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl md:text-3xl font-bold mb-4">खोजें</h1>
-          <SearchBar initialValue={q} />
+          <SearchBar initialQuery={q} />
         </div>
       </div>
 

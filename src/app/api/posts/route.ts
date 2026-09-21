@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ContentType } from '@prisma/client';
+import { ContentType, Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     data: { status: 'PUBLISHED' },
   });
 
-  const where: Parameters<typeof prisma.post.findMany>[0]['where'] = {
+  const where: Prisma.PostWhereInput = {
     status: 'PUBLISHED',
   };
 

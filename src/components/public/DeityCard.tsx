@@ -8,7 +8,7 @@ import DeitySymbol from './DeitySymbol';
 interface Deity {
   id: string;
   name: string;
-  nameHindi: string;
+  nameHindi: string | null;
   slug: string;
   image?: string | null;
   _count?: { posts: number };
@@ -37,7 +37,7 @@ export default function DeityCard({ deity }: DeityCardProps) {
       {/* Image */}
       <div
         className="relative w-20 h-20 rounded-full overflow-hidden mb-3 ring-2 ring-offset-2 transition-all duration-200 group-hover:ring-4"
-        style={{ ringColor: 'var(--gold)' }}
+        style={{ '--tw-ring-color': 'var(--gold)' } as React.CSSProperties}
       >
         {deity.image ? (
           <Image
