@@ -10,15 +10,15 @@ export default function GaneshChaturthiBanner() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ background: 'linear-gradient(120deg, #7B1B1B 0%, #B34700 55%, #E85D04 100%)' }}
+      style={{ background: 'linear-gradient(120deg, var(--header-bg-1) 0%, var(--deep-orange) 55%, var(--saffron) 100%)' }}
     >
       {/* Decorative dots */}
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.08]"
         style={{
-          backgroundImage: `radial-gradient(circle at 15% 30%, #FFD700 1.5px, transparent 1.5px),
-                            radial-gradient(circle at 85% 70%, #FFD700 1.5px, transparent 1.5px)`,
+          backgroundImage: `radial-gradient(circle at 15% 30%, var(--header-gold) 1.5px, transparent 1.5px),
+                            radial-gradient(circle at 85% 70%, var(--header-gold) 1.5px, transparent 1.5px)`,
           backgroundSize: '40px 40px',
         }}
       />
@@ -43,7 +43,7 @@ export default function GaneshChaturthiBanner() {
             style={{
               fontFamily: 'var(--font-devanagari)',
               background: 'rgba(255,215,0,0.18)',
-              color: '#FFD700',
+              color: 'var(--header-gold)',
               border: '1px solid rgba(255,215,0,0.35)',
             }}
           >
@@ -68,8 +68,8 @@ export default function GaneshChaturthiBanner() {
           className="flex-shrink-0 px-5 py-2.5 rounded-lg text-sm font-bold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
           style={{
             fontFamily: 'var(--font-devanagari)',
-            background: 'linear-gradient(135deg, #FFE9A8, #D4AF37)',
-            color: '#2D0A0A',
+            background: 'linear-gradient(135deg, var(--header-text), var(--header-gold))',
+            color: 'var(--header-darker)',
             boxShadow: '0 4px 16px rgba(212,175,55,0.4)',
           }}
         >

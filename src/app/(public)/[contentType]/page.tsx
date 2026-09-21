@@ -66,13 +66,13 @@ export default async function ContentTypePage({ params, searchParams }: Props) {
       {/* Category header */}
       <div
         className="py-12 px-4 sm:px-6 lg:px-8 text-center"
-        style={{ background: 'linear-gradient(135deg, #2D0A0A 0%, #7B1B1B 60%, #E85D04 100%)' }}
+        style={{ background: 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 60%, var(--deep-orange) 100%)' }}
       >
         <div className="max-w-3xl mx-auto">
           <div className="text-5xl mb-4" aria-hidden="true">{icon}</div>
           <h1
             className="text-3xl sm:text-4xl font-bold mb-3"
-            style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+            style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
           >
             <CategoryPageTitle slug={contentType} />
           </h1>
@@ -88,7 +88,7 @@ export default async function ContentTypePage({ params, searchParams }: Props) {
               style={{
                 fontFamily: 'var(--font-devanagari)',
                 background: 'rgba(212,175,55,0.15)',
-                color: '#D4AF37',
+                color: 'var(--header-gold)',
                 border: '1px solid rgba(212,175,55,0.3)',
               }}
             >

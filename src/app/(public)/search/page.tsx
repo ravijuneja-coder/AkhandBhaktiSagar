@@ -100,9 +100,12 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
   const page = Math.max(1, parseInt(searchParams.page || '1'))
 
   return (
-    <div className="min-h-screen bg-[#FDF6EC]">
+    <div className="min-h-screen" style={{ background: 'var(--color-bg-primary)' }}>
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#7B1B1B] to-[#E85D04] text-white py-10 px-4">
+      <div
+        className="text-white py-10 px-4"
+        style={{ background: 'linear-gradient(90deg, var(--header-bg-1), var(--deep-orange))' }}
+      >
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl md:text-3xl font-bold mb-4">खोजें</h1>
           <SearchBar initialQuery={q} />

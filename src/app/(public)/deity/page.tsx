@@ -18,13 +18,13 @@ export default async function DeitiesPage() {
       {/* Header */}
       <div
         className="py-12 px-4 sm:px-6 lg:px-8 text-center"
-        style={{ background: 'linear-gradient(135deg, #2D0A0A 0%, #7B1B1B 60%, #E85D04 100%)' }}
+        style={{ background: 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 60%, var(--deep-orange) 100%)' }}
       >
         <div className="max-w-3xl mx-auto">
           <div className="text-5xl mb-4">🕉</div>
           <h1
             className="text-3xl sm:text-4xl font-bold mb-3"
-            style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+            style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
           >
             <DeityPageTitle />
           </h1>

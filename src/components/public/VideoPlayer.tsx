@@ -37,8 +37,8 @@ export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: V
         <div
           className="px-4 py-3 text-sm font-semibold"
           style={{
-            background: 'linear-gradient(90deg, #7B1B1B, #4A0F0F)',
-            color: '#FFD700',
+            background: 'linear-gradient(90deg, var(--header-bg-1), var(--header-dark))',
+            color: 'var(--header-gold)',
             fontFamily: 'var(--font-devanagari)',
           }}
         >
@@ -67,8 +67,8 @@ export default function VideoPlayer({ videoType, videoUrl, embedCode, title }: V
       <div
         className="px-4 py-3 text-sm font-semibold flex items-center gap-2"
         style={{
-          background: 'linear-gradient(90deg, #7B1B1B, #4A0F0F)',
-          color: '#FFD700',
+          background: 'linear-gradient(90deg, var(--header-bg-1), var(--header-dark))',
+          color: 'var(--header-gold)',
           fontFamily: 'var(--font-devanagari)',
           borderBottom: '2px solid var(--gold)',
         }}

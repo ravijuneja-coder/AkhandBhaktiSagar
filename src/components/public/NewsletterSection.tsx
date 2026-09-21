@@ -44,7 +44,7 @@ export default function NewsletterSection() {
     <section
       className="py-16 px-4 sm:px-6 lg:px-8"
       style={{
-        background: 'linear-gradient(135deg, #2D0A0A 0%, #7B1B1B 50%, #4A0F0F 100%)',
+        background: 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 50%, var(--header-dark) 100%)',
       }}
     >
       <div className="max-w-2xl mx-auto text-center">
@@ -52,14 +52,14 @@ export default function NewsletterSection() {
         <div
           className="text-4xl mb-4"
           aria-hidden="true"
-          style={{ color: '#D4AF37' }}
+          style={{ color: 'var(--header-gold)' }}
         >
           🕉
         </div>
 
         <h2
           className="text-2xl sm:text-3xl font-bold mb-3"
-          style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700', textWrap: 'balance' }}
+          style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)', textWrap: 'balance' }}
         >
           {t('newsletter', 'heading')}
         </h2>
@@ -112,8 +112,8 @@ export default function NewsletterSection() {
               className="px-6 py-3.5 rounded-lg font-bold text-sm transition-all disabled:opacity-70 hover:-translate-y-0.5 hover:shadow-lg"
               style={{
                 fontFamily: 'var(--font-devanagari)',
-                background: '#D4AF37',
-                color: '#2D0A0A',
+                background: 'var(--header-gold)',
+                color: 'var(--header-darker)',
                 whiteSpace: 'nowrap',
               }}
             >

@@ -67,14 +67,14 @@ export default function Footer() {
   ];
 
   return (
-    <footer style={{ background: 'linear-gradient(180deg, #2D0A0A 0%, #1A0505 100%)' }}>
+    <footer style={{ background: 'linear-gradient(180deg, var(--header-darker) 0%, #12121A 100%)' }}>
       {/* Om divider */}
       <div
         className="py-3 text-center text-lg"
         style={{
           fontFamily: 'var(--font-devanagari)',
-          color: '#D4AF37',
-          borderBottom: '1px solid rgba(212,175,55,0.2)',
+          color: 'var(--header-gold)',
+          borderBottom: '1px solid var(--header-gold-soft)',
           letterSpacing: '0.2em',
         }}
       >
@@ -87,11 +87,11 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div
               className="text-2xl font-bold mb-3"
-              style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+              style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
             >
               🕉 अखंड भक्ति सागर
             </div>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#C8A07A', fontFamily: 'var(--font-devanagari)' }}>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--header-text-muted)', fontFamily: 'var(--font-devanagari)' }}>
               {t('footer', 'about')}
             </p>
             <div className="flex gap-3">
@@ -103,8 +103,8 @@ export default function Footer() {
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:scale-110"
                   style={{
                     background: 'rgba(212,175,55,0.12)',
-                    color: '#D4AF37',
-                    border: '1px solid rgba(212,175,55,0.2)',
+                    color: 'var(--header-gold)',
+                    border: '1px solid var(--header-gold-soft)',
                   }}
                 >
                   {social.icon}
@@ -119,8 +119,8 @@ export default function Footer() {
               className="text-base font-bold mb-4 pb-2"
               style={{
                 fontFamily: 'var(--font-devanagari)',
-                color: '#FFD700',
-                borderBottom: '2px solid rgba(212,175,55,0.3)',
+                color: 'var(--header-gold)',
+                borderBottom: '2px solid var(--header-gold-soft)',
               }}
             >
               {t('footer', 'categoriesHeading')}
@@ -131,9 +131,9 @@ export default function Footer() {
                   <Link
                     href={link.href}
                     className="text-sm transition-colors hover:text-yellow-400 flex items-center gap-2"
-                    style={{ color: '#C8A07A', fontFamily: 'var(--font-devanagari)' }}
+                    style={{ color: 'var(--header-text-muted)', fontFamily: 'var(--font-devanagari)' }}
                   >
-                    <span style={{ color: '#FF6B00', fontSize: '0.6rem' }}>◆</span>
+                    <span style={{ color: 'var(--saffron)', fontSize: '0.6rem' }}>◆</span>
                     {link.label}
                   </Link>
                 </li>
@@ -147,8 +147,8 @@ export default function Footer() {
               className="text-base font-bold mb-4 pb-2"
               style={{
                 fontFamily: 'var(--font-devanagari)',
-                color: '#FFD700',
-                borderBottom: '2px solid rgba(212,175,55,0.3)',
+                color: 'var(--header-gold)',
+                borderBottom: '2px solid var(--header-gold-soft)',
               }}
             >
               {t('footer', 'linksHeading')}
@@ -159,9 +159,9 @@ export default function Footer() {
                   <Link
                     href={link.href}
                     className="text-sm transition-colors hover:text-yellow-400 flex items-center gap-2"
-                    style={{ color: '#C8A07A', fontFamily: 'var(--font-devanagari)' }}
+                    style={{ color: 'var(--header-text-muted)', fontFamily: 'var(--font-devanagari)' }}
                   >
-                    <span style={{ color: '#FF6B00', fontSize: '0.6rem' }}>◆</span>
+                    <span style={{ color: 'var(--saffron)', fontSize: '0.6rem' }}>◆</span>
                     {link.label}
                   </Link>
                 </li>
@@ -175,8 +175,8 @@ export default function Footer() {
               className="text-base font-bold mb-4 pb-2"
               style={{
                 fontFamily: 'var(--font-devanagari)',
-                color: '#FFD700',
-                borderBottom: '2px solid rgba(212,175,55,0.3)',
+                color: 'var(--header-gold)',
+                borderBottom: '2px solid var(--header-gold-soft)',
               }}
             >
               {t('footer', 'shlokaHeading')}
@@ -185,14 +185,14 @@ export default function Footer() {
               className="text-sm leading-relaxed italic whitespace-pre-line"
               style={{
                 fontFamily: 'var(--font-devanagari)',
-                color: '#D4AF37',
-                borderLeft: '3px solid #FF6B00',
+                color: 'var(--header-gold)',
+                borderLeft: '3px solid var(--saffron)',
                 paddingLeft: '1rem',
               }}
             >
               {t('footer', 'shlokaText')}
             </blockquote>
-            <p className="text-xs mt-2" style={{ color: '#8B6A4A', fontFamily: 'var(--font-devanagari)' }}>
+            <p className="text-xs mt-2" style={{ color: 'var(--header-text-muted)', opacity: 0.7, fontFamily: 'var(--font-devanagari)' }}>
               {t('footer', 'shlokaSource')}
             </p>
           </div>
@@ -203,13 +203,14 @@ export default function Footer() {
       <div
         className="py-4 text-center text-xs"
         style={{
-          borderTop: '1px solid rgba(212,175,55,0.15)',
-          color: '#6B4A2A',
+          borderTop: '1px solid var(--header-gold-soft)',
+          color: 'var(--header-text-muted)',
+          opacity: 0.6,
           fontFamily: 'var(--font-devanagari)',
         }}
       >
         © {year} अखंड भक्ति सागर। {t('footer', 'rights')}{' '}
-        <span style={{ color: '#FF6B00' }}>🕉</span>{' '}
+        <span style={{ color: 'var(--saffron)' }}>🕉</span>{' '}
         {t('footer', 'madeWith')}
       </div>
     </footer>

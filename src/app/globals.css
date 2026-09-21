@@ -5,35 +5,45 @@
 @tailwind utilities;
 
 :root {
-  /* Brand Colors */
-  --saffron: #FF6B00;
-  --deep-orange: #E85D04;
-  --maroon: #7B1B1B;
-  --cream: #FDF6EC;
-  --gold: #D4AF37;
+  /* Brand Colors (default theme: Royal Blue + Gold) */
+  --saffron: #D9A441;
+  --deep-orange: #2E6F9E;
+  --maroon: #173B63;
+  --cream: #FFF9EE;
+  --gold: #D9A441;
 
   /* Semantic tokens */
-  --color-bg-primary: #FDF6EC;
-  --color-bg-secondary: #FEFAF5;
-  --color-bg-accent: #FF6B00;
-  --color-text-primary: #1A0A00;
-  --color-text-secondary: #5C3317;
-  --color-text-muted: #8B6A4A;
+  --color-bg-primary: #FFF9EE;
+  --color-bg-secondary: #FFFDF8;
+  --color-bg-accent: #2E6F9E;
+  --color-text-primary: #14213A;
+  --color-text-secondary: #2E6F9E;
+  --color-text-muted: #6E7C90;
   --color-text-on-accent: #FFFFFF;
-  --color-border: #E8D5BB;
-  --color-border-strong: #D4AF37;
+  --color-border: #E8DCC0;
+  --color-border-strong: #D9A441;
   --color-surface-card: #FFFFFF;
-  --color-surface-overlay: rgba(123, 27, 27, 0.85);
+  --color-surface-overlay: rgba(23, 59, 99, 0.85);
 
   /* Gradients */
-  --gradient-hero: linear-gradient(135deg, #7B1B1B 0%, #E85D04 50%, #FF6B00 100%);
-  --gradient-header: linear-gradient(90deg, #7B1B1B 0%, #4A0F0F 100%);
-  --gradient-card-hover: linear-gradient(180deg, transparent 60%, rgba(123, 27, 27, 0.8) 100%);
+  --gradient-hero: linear-gradient(135deg, #173B63 0%, #2E6F9E 50%, #D9A441 100%);
+  --gradient-header: linear-gradient(90deg, #173B63 0%, #0F274A 100%);
+  --gradient-card-hover: linear-gradient(180deg, transparent 60%, rgba(23, 59, 99, 0.8) 100%);
 
   /* Shadows */
-  --shadow-card: 0 2px 16px rgba(123, 27, 27, 0.08);
-  --shadow-card-hover: 0 8px 32px rgba(232, 93, 4, 0.18);
-  --shadow-header: 0 2px 20px rgba(123, 27, 27, 0.15);
+  --shadow-card: 0 2px 16px rgba(23, 59, 99, 0.08);
+  --shadow-card-hover: 0 8px 32px rgba(46, 111, 158, 0.18);
+  --shadow-header: 0 2px 20px rgba(23, 59, 99, 0.15);
+
+  /* Header-specific tokens (dark surface, independent of page background) */
+  --header-bg-1: #173B63;
+  --header-bg-2: #2E6F9E;
+  --header-dark: #0F2640;
+  --header-darker: #0A1B2D;
+  --header-gold: #D9A441;
+  --header-gold-soft: rgba(217, 164, 65, 0.4);
+  --header-text: #FFE8B8;
+  --header-text-muted: #BFD4E8;
 
   /* Typography */
   --font-devanagari: 'Noto Sans Devanagari', 'Mangal', 'Arial Unicode MS', sans-serif;

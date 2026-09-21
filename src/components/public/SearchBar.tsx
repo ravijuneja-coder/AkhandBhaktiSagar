@@ -79,8 +79,8 @@ export default function SearchBar({ onClose, autoFocus, initialQuery = '' }: Sea
         className="px-4 py-2.5 rounded-lg text-sm font-semibold transition-all hover:opacity-90"
         style={{
           fontFamily: 'var(--font-devanagari)',
-          background: '#D4AF37',
-          color: '#2D0A0A',
+          background: 'var(--header-gold)',
+          color: 'var(--header-darker)',
           whiteSpace: 'nowrap',
         }}
       >

@@ -33,8 +33,8 @@ export default function HeroSection() {
       className="relative overflow-hidden"
       style={{
         background: isGanesh
-          ? 'linear-gradient(135deg, #4A0F0F 0%, #B34700 40%, #E85D04 75%, #FF8C00 100%)'
-          : 'linear-gradient(135deg, #2D0A0A 0%, #7B1B1B 35%, #E85D04 70%, #FF6B00 100%)',
+          ? 'linear-gradient(135deg, var(--header-dark) 0%, var(--deep-orange) 40%, var(--saffron) 75%, var(--header-gold) 100%)'
+          : 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 35%, var(--deep-orange) 70%, var(--saffron) 100%)',
         minHeight: '560px',
       }}
     >
@@ -69,7 +69,7 @@ export default function HeroSection() {
         height="440"
         viewBox="0 0 440 440"
       >
-        <g fill="none" stroke="#FFD700" strokeWidth="1">
+        <g fill="none" stroke="var(--header-gold)" strokeWidth="1">
           <circle cx="220" cy="220" r="210" />
           <circle cx="220" cy="220" r="175" />
           <circle cx="220" cy="220" r="140" strokeDasharray="4 6" />
@@ -81,7 +81,7 @@ export default function HeroSection() {
           const y1 = 220 + 140 * Math.sin(rad);
           const x2 = 220 + 210 * Math.cos(rad);
           const y2 = 220 + 210 * Math.sin(rad);
-          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#FFD700" strokeWidth="1" />;
+          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--header-gold)" strokeWidth="1" />;
         })}
       </svg>
 
@@ -92,7 +92,7 @@ export default function HeroSection() {
         height="380"
         viewBox="0 0 380 380"
       >
-        <g fill="none" stroke="#D4AF37" strokeWidth="1.5">
+        <g fill="none" stroke="var(--header-gold)" strokeWidth="1.5">
           <circle cx="190" cy="190" r="180" />
           <circle cx="190" cy="190" r="130" />
         </g>
@@ -103,9 +103,9 @@ export default function HeroSection() {
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.05]"
         style={{
-          backgroundImage: `radial-gradient(circle at 20% 80%, #FFD700 1px, transparent 1px),
-                            radial-gradient(circle at 80% 20%, #FFD700 1px, transparent 1px),
-                            radial-gradient(circle at 50% 50%, #FFD700 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(circle at 20% 80%, var(--header-gold) 1px, transparent 1px),
+                            radial-gradient(circle at 80% 20%, var(--header-gold) 1px, transparent 1px),
+                            radial-gradient(circle at 50% 50%, var(--header-gold) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
         }}
       />
@@ -148,7 +148,7 @@ export default function HeroSection() {
              M760 90 L760 55 Q820 20 880 55 L880 90 Z
              M920 90 L920 40 Q980 5 1040 40 L1040 90 Z
              M1080 90 L1080 55 Q1140 20 1200 55 L1200 90 Z"
-          fill={isGanesh ? '#4A0F0F' : '#2D0A0A'}
+          fill={isGanesh ? 'var(--header-dark)' : 'var(--header-darker)'}
         />
       </svg>
 
@@ -192,7 +192,7 @@ export default function HeroSection() {
           {isGanesh ? (
             <DeitySymbol slug="ganesh-ji" />
           ) : (
-            <span style={{ fontSize: '2rem', color: '#FFD700', textShadow: '0 0 16px rgba(255,215,0,0.5)' }}>🕉</span>
+            <span style={{ fontSize: '2rem', color: 'var(--header-gold)', textShadow: '0 0 16px rgba(255,215,0,0.5)' }}>🕉</span>
           )}
         </div>
 
@@ -201,7 +201,7 @@ export default function HeroSection() {
           className="text-base sm:text-lg mb-4 tracking-widest"
           style={{
             fontFamily: 'var(--font-devanagari)',
-            color: '#D4AF37',
+            color: 'var(--header-gold)',
             letterSpacing: '0.25em',
           }}
         >
@@ -251,8 +251,8 @@ export default function HeroSection() {
             className="px-8 py-3 rounded-lg font-bold text-base transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             style={{
               fontFamily: 'var(--font-devanagari)',
-              background: 'linear-gradient(135deg, #FFE9A8, #D4AF37)',
-              color: '#2D0A0A',
+              background: 'linear-gradient(135deg, var(--header-text), var(--header-gold))',
+              color: 'var(--header-darker)',
               boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
             }}
           >
@@ -287,7 +287,7 @@ export default function HeroSection() {
             >
               <div
                 className="text-2xl sm:text-3xl font-bold"
-                style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+                style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
               >
                 {stat.num}
               </div>
@@ -311,7 +311,7 @@ function DiyaIcon({ size }: { size: number }) {
       {/* flame */}
       <path
         d="M20 4c-4 6-6 9-6 13a6 6 0 0 0 12 0c0-4-2-7-6-13z"
-        fill="#FFD700"
+        fill="var(--header-gold)"
         opacity="0.9"
       />
       <path
@@ -321,11 +321,11 @@ function DiyaIcon({ size }: { size: number }) {
       {/* diya bowl */}
       <path
         d="M4 26c0 8 7 14 16 14s16-6 16-14"
-        stroke="#D4AF37"
+        stroke="var(--header-gold)"
         strokeWidth="2.5"
         fill="none"
       />
-      <ellipse cx="20" cy="26" rx="16" ry="4" fill="#D4AF37" opacity="0.85" />
+      <ellipse cx="20" cy="26" rx="16" ry="4" fill="var(--header-gold)" opacity="0.85" />
     </svg>
   );
 }
@@ -335,7 +335,7 @@ function ModakIcon({ size }: { size: number }) {
     <svg width={size} height={size * 1.1} viewBox="0 0 40 44" fill="none">
       <path
         d="M20 6c-11 0-18 8-18 19s7 17 18 17 18-6 18-17S31 6 20 6z"
-        fill="#FFD700"
+        fill="var(--header-gold)"
         opacity="0.92"
       />
       <path d="M9 13q11 -10 22 0" stroke="#B34700" strokeWidth="2.5" fill="none" />

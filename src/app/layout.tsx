@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Noto_Sans_Devanagari } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/lib/i18n';
+import { ThemeProvider } from '@/lib/theme-context';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -101,7 +102,9 @@ export default function RootLayout({
   return (
     <html lang="hi" className={`${inter.variable} ${notoSansDevanagari.variable}`}>
       <body className={inter.className}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

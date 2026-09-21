@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import DigitalClock from './DigitalClock';
+import ThemePicker from './ThemePicker';
 import { useTranslation, useLanguage } from '@/lib/i18n';
 
 export default function Header() {
@@ -46,13 +47,13 @@ export default function Header() {
           scrolled ? 'shadow-lg' : ''
         }`}
         style={{
-          background: 'linear-gradient(90deg, #4A0F0F 0%, #7B1B1B 40%, #4A0F0F 100%)',
+          background: 'linear-gradient(90deg, var(--header-dark) 0%, var(--header-bg-1) 40%, var(--header-dark) 100%)',
           backdropFilter: scrolled ? 'blur(12px)' : 'none',
           top: 'env(safe-area-inset-top, 0px)',
         }}
       >
         {/* Top accent strip */}
-        <div className="h-1" style={{ background: 'linear-gradient(90deg, #D4AF37, #FF6B00, #D4AF37)' }} />
+        <div className="h-1" style={{ background: 'linear-gradient(90deg, var(--header-gold), var(--saffron), var(--header-gold))' }} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -62,13 +63,13 @@ export default function Header() {
                 className="text-xl sm:text-2xl font-bold tracking-wide"
                 style={{
                   fontFamily: 'var(--font-devanagari)',
-                  color: '#FFD700',
-                  textShadow: '0 1px 8px rgba(212,175,55,0.4)',
+                  color: 'var(--header-gold)',
+                  textShadow: '0 1px 8px var(--header-gold-soft)',
                 }}
               >
                 🕉 अखंड भक्ति सागर
               </span>
-              <span className="text-xs hidden sm:block" style={{ color: '#FFCBA4', letterSpacing: '0.08em' }}>
+              <span className="text-xs hidden sm:block" style={{ color: 'var(--header-text-muted)', letterSpacing: '0.08em' }}>
                 {t('header', 'tagline')}
               </span>
             </Link>
@@ -82,7 +83,7 @@ export default function Header() {
                   className="px-3 py-2 rounded-md text-sm font-medium transition-all duration-150 hover:text-yellow-300"
                   style={{
                     fontFamily: 'var(--font-devanagari)',
-                    color: '#FFDDB0',
+                    color: 'var(--header-text)',
                   }}
                 >
                   {item.label}
@@ -93,6 +94,7 @@ export default function Header() {
             {/* Right actions */}
             <div className="flex items-center gap-2">
               <DigitalClock />
+              <ThemePicker />
               <LanguageToggle />
 
               {searchOpen ? (
@@ -104,7 +106,7 @@ export default function Header() {
                   onClick={() => setSearchOpen(true)}
                   aria-label={t('header', 'openSearch')}
                   className="p-2 rounded-full transition-colors hover:bg-white/10"
-                  style={{ color: '#FFD700' }}
+                  style={{ color: 'var(--header-gold)' }}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <circle cx="11" cy="11" r="8" /><path strokeLinecap="round" d="m21 21-4.35-4.35" />
@@ -118,7 +120,7 @@ export default function Header() {
                 className="lg:hidden p-2 rounded-md transition-colors hover:bg-white/10"
                 aria-label={menuOpen ? t('header', 'closeMenu') : t('header', 'openMenu')}
                 aria-expanded={menuOpen}
-                style={{ color: '#FFD700' }}
+                style={{ color: 'var(--header-gold)' }}
               >
                 {menuOpen ? (
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -139,13 +141,13 @@ export default function Header() {
       {menuOpen && (
         <div
           className="fixed inset-0 z-40 lg:hidden flex flex-col"
-          style={{ background: 'linear-gradient(160deg, #2D0A0A 0%, #4A0F0F 50%, #7B1B1B 100%)' }}
+          style={{ background: 'linear-gradient(160deg, var(--header-darker) 0%, var(--header-dark) 50%, var(--header-bg-1) 100%)' }}
         >
-          <div className="h-1" style={{ background: 'linear-gradient(90deg, #D4AF37, #FF6B00, #D4AF37)' }} />
+          <div className="h-1" style={{ background: 'linear-gradient(90deg, var(--header-gold), var(--saffron), var(--header-gold))' }} />
           <div className="flex items-center justify-between px-4 h-16">
             <span
               className="text-xl font-bold"
-              style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+              style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
             >
               🕉 अखंड भक्ति सागर
             </span>
@@ -153,7 +155,7 @@ export default function Header() {
               onClick={() => setMenuOpen(false)}
               aria-label={t('header', 'close')}
               className="p-2"
-              style={{ color: '#FFD700' }}
+              style={{ color: 'var(--header-gold)' }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" d="M6 18L18 6M6 6l12 12" />
@@ -172,14 +174,14 @@ export default function Header() {
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center gap-3 px-4 py-4 text-xl rounded-lg mb-1 transition-colors hover:bg-white/10"
-                style={{ fontFamily: 'var(--font-devanagari)', color: '#FFDDB0' }}
+                style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-text)' }}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          <div className="px-6 py-6 text-center" style={{ color: 'rgba(255,220,176,0.5)', fontSize: '0.8rem', fontFamily: 'var(--font-devanagari)' }}>
+          <div className="px-6 py-6 text-center" style={{ color: 'var(--header-text-muted)', opacity: 0.7, fontSize: '0.8rem', fontFamily: 'var(--font-devanagari)' }}>
             {t('header', 'footerMantra')}
           </div>
         </div>
@@ -200,15 +202,15 @@ function LanguageToggle() {
       role="group"
       aria-label={t('header', 'language')}
       className="flex items-center rounded-full overflow-hidden text-xs font-semibold"
-      style={{ border: '1px solid rgba(212,175,55,0.4)' }}
+      style={{ border: '1px solid var(--header-gold-soft)' }}
     >
       <button
         onClick={() => setLang('hi')}
         aria-pressed={lang === 'hi'}
         className="px-2.5 py-1.5 transition-colors"
         style={{
-          background: lang === 'hi' ? '#D4AF37' : 'transparent',
-          color: lang === 'hi' ? '#2D0A0A' : '#FFDDB0',
+          background: lang === 'hi' ? 'var(--header-gold)' : 'transparent',
+          color: lang === 'hi' ? 'var(--header-darker)' : 'var(--header-text)',
           fontFamily: 'var(--font-devanagari)',
         }}
       >
@@ -219,8 +221,8 @@ function LanguageToggle() {
         aria-pressed={lang === 'en'}
         className="px-2.5 py-1.5 transition-colors"
         style={{
-          background: lang === 'en' ? '#D4AF37' : 'transparent',
-          color: lang === 'en' ? '#2D0A0A' : '#FFDDB0',
+          background: lang === 'en' ? 'var(--header-gold)' : 'transparent',
+          color: lang === 'en' ? 'var(--header-darker)' : 'var(--header-text)',
         }}
       >
         EN

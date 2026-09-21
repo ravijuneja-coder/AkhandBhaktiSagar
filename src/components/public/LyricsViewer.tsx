@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@/lib/i18n';
+import { useSiteTheme } from '@/lib/theme-context';
 
 interface LyricsViewerProps {
   lyrics: string;
@@ -12,6 +13,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
   const [copied, setCopied] = useState(false);
   const [fontSize, setFontSize] = useState<'sm' | 'md' | 'lg'>('md');
   const { t, lang } = useTranslation();
+  const { theme } = useSiteTheme();
 
   const fontSizeMap = { sm: '1.05rem', md: '1.2rem', lg: '1.4rem' };
 
@@ -46,7 +48,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
         <style>
           body { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 14pt; line-height: 2; margin: 2cm; color: #1A0A00; }
-          h1 { font-size: 18pt; color: #7B1B1B; margin-bottom: 1em; text-align: center; }
+          h1 { font-size: 18pt; color: ${theme.main}; margin-bottom: 1em; text-align: center; }
           pre { white-space: pre-wrap; font-family: inherit; font-size: inherit; }
           @media print { body { margin: 1.5cm; } }
         </style>
@@ -68,13 +70,13 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
       <div
         className="flex items-center justify-between px-4 py-3 gap-3 flex-wrap"
         style={{
-          background: 'linear-gradient(90deg, #7B1B1B, #4A0F0F)',
+          background: 'linear-gradient(90deg, var(--header-bg-1), var(--header-dark))',
           borderBottom: '2px solid var(--gold)',
         }}
       >
         <span
           className="text-sm font-semibold"
-          style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+          style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
         >
           {t('lyrics', 'heading')}
         </span>
@@ -88,8 +90,8 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
                 onClick={() => setFontSize(s)}
                 className="w-8 h-8 rounded-md text-xs font-bold transition-all"
                 style={{
-                  background: fontSize === s ? '#D4AF37' : 'rgba(255,255,255,0.12)',
-                  color: fontSize === s ? '#2D0A0A' : '#FFDDB0',
+                  background: fontSize === s ? 'var(--header-gold)' : 'rgba(255,255,255,0.12)',
+                  color: fontSize === s ? 'var(--header-darker)' : 'var(--header-text)',
                   fontSize: s === 'sm' ? '0.7rem' : s === 'md' ? '0.85rem' : '1rem',
                 }}
                 aria-label={`${s === 'sm' ? t('lyrics', 'small') : s === 'md' ? t('lyrics', 'medium') : t('lyrics', 'large')} ${t('lyrics', 'letterAria')}`}
@@ -107,7 +109,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
             style={{
               fontFamily: 'var(--font-devanagari)',
               background: copied ? '#16A34A' : 'rgba(212,175,55,0.2)',
-              color: copied ? '#FFFFFF' : '#D4AF37',
+              color: copied ? '#FFFFFF' : 'var(--header-gold)',
               border: `1px solid ${copied ? '#16A34A' : 'rgba(212,175,55,0.3)'}`,
             }}
           >
@@ -121,7 +123,7 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
             style={{
               fontFamily: 'var(--font-devanagari)',
               background: 'rgba(255,255,255,0.1)',
-              color: '#FFDDB0',
+              color: 'var(--header-text)',
               border: '1px solid rgba(255,255,255,0.15)',
             }}
           >

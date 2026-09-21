@@ -71,7 +71,7 @@ export default function PostCard({ post }: PostCardProps) {
               {post.deity && (
                 <span
                   className="px-3 py-2 text-sm font-bold"
-                  style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
+                  style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
                 >
                   {post.deity.nameHindi || post.deity.name}
                 </span>

@@ -184,7 +184,7 @@ export async function getDeityPosts(deityId: string, page = 1, pageSize = 12) {
 export async function getAllCategories() {
   try {
     const contentTypes: ContentType[] = [
-      'BHAJAN', 'AARTI', 'CHALISA', 'MANTRA', 'STOTRA', 'ARTICLE', 'FESTIVAL',
+      'BHAJAN', 'AARTI', 'CHALISA', 'MANTRA', 'STOTRA', 'ARTICLE', 'FESTIVAL', 'KATHA', 'BHAKTI_GEET',
     ];
     const counts = await Promise.all(
       contentTypes.map((ct) =>

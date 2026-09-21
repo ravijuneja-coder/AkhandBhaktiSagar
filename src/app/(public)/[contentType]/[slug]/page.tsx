@@ -284,7 +284,7 @@ export default async function PostPage({ params }: Props) {
                     style={{ background: 'white', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-card)' }}
                   >
                     {post.deity.image && (
-                      <div className="relative w-20 h-20 rounded-full overflow-hidden mx-auto mb-3" style={{ border: '2px solid #D4AF37' }}>
+                      <div className="relative w-20 h-20 rounded-full overflow-hidden mx-auto mb-3" style={{ border: '2px solid var(--header-gold)' }}>
                         <Image src={post.deity.image} alt={post.deity.nameHindi || post.deity.name} fill className="object-cover" sizes="80px" />
                       </div>
                     )}
@@ -329,7 +329,7 @@ export default async function PostPage({ params }: Props) {
                                 <Image src={r.featuredImage} alt={r.title} fill className="object-cover" sizes="64px" />
                               </div>
                             ) : (
-                              <div className="w-16 h-12 rounded-md flex-shrink-0 flex items-center justify-center text-2xl" style={{ background: 'linear-gradient(135deg, #FF6B00, #7B1B1B)' }} aria-hidden="true">🕉</div>
+                              <div className="w-16 h-12 rounded-md flex-shrink-0 flex items-center justify-center text-2xl" style={{ background: 'linear-gradient(135deg, var(--saffron), var(--header-bg-1))' }} aria-hidden="true">🕉</div>
                             )}
                             <span
                               className="text-sm font-medium leading-snug line-clamp-2 hover:text-orange-600 transition-colors"

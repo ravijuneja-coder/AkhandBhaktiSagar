@@ -27,8 +27,8 @@ export default function DigitalClock() {
       className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold tabular-nums"
       style={{
         background: 'rgba(255,255,255,0.08)',
-        color: '#FFDDB0',
-        border: '1px solid rgba(212,175,55,0.3)',
+        color: 'var(--header-text)',
+        border: '1px solid var(--header-gold-soft)',
         fontVariantNumeric: 'tabular-nums',
       }}
       aria-label={`Current time ${time}`}

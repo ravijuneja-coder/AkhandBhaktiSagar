@@ -51,11 +51,11 @@ export default async function DeityPage({ params, searchParams }: Props) {
       {/* Deity header */}
       <div
         className="py-12 px-4 sm:px-6 lg:px-8"
-        style={{ background: 'linear-gradient(135deg, #2D0A0A 0%, #7B1B1B 60%, #E85D04 100%)' }}
+        style={{ background: 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 60%, var(--deep-orange) 100%)' }}
       >
         <div className="max-w-3xl mx-auto text-center">
           {deity.image && (
-            <div className="relative w-28 h-28 rounded-full overflow-hidden mx-auto mb-5 ring-4 ring-gold-400" style={{ borderColor: '#D4AF37', borderWidth: '3px', borderStyle: 'solid' }}>
+            <div className="relative w-28 h-28 rounded-full overflow-hidden mx-auto mb-5 ring-4 ring-gold-400" style={{ borderColor: 'var(--header-gold)', borderWidth: '3px', borderStyle: 'solid' }}>
               <Image src={deity.image} alt={name} fill className="object-cover" sizes="112px" priority />
             </div>
           )}
@@ -63,7 +63,7 @@ export default async function DeityPage({ params, searchParams }: Props) {
 
           <h1
             className="text-3xl sm:text-4xl font-bold mb-1"
-            style={{ fontFamily: 'var(--font-devanagari)', color: '#FFD700' }}
+            style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
           >
             {name}
           </h1>
@@ -84,7 +84,7 @@ export default async function DeityPage({ params, searchParams }: Props) {
               style={{
                 fontFamily: 'var(--font-devanagari)',
                 background: 'rgba(212,175,55,0.15)',
-                color: '#D4AF37',
+                color: 'var(--header-gold)',
                 border: '1px solid rgba(212,175,55,0.3)',
               }}
             >
