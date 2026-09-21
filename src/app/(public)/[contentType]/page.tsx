@@ -11,7 +11,7 @@ import {
   CategoryPageEmptyState,
 } from '@/components/public/CategoryPageHeading';
 
-const validContentTypes = ['bhajan', 'aarti', 'chalisa', 'mantra', 'stotra', 'article', 'festival'];
+const validContentTypes = ['bhajan', 'aarti', 'chalisa', 'mantra', 'stotra', 'article', 'festival', 'katha', 'bhakti-geet'];
 
 const categoryIcons: Record<string, string> = {
   bhajan: '🎵',
@@ -21,6 +21,8 @@ const categoryIcons: Record<string, string> = {
   stotra: '📖',
   article: '✍️',
   festival: '🎊',
+  katha: '📜',
+  'bhakti-geet': '🎶',
 };
 
 interface Props {

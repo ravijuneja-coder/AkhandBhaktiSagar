@@ -166,6 +166,30 @@ async function main() {
         'माँ दुर्गा - नवदुर्गा, चण्डिका, महाशक्ति। असुरों का नाश करने वाली महादेवी।',
       seoTitle: 'दुर्गा माँ - भजन, आरती, चालीसा | Akhand Bhakti Sagar',
     },
+    {
+      name: 'Santoshi Mata',
+      nameHindi: 'संतोषी माता',
+      slug: 'santoshi-mata',
+      description:
+        'संतोषी माता - संतोष, श्रद्धा और सुख-समृद्धि की देवी। शुक्रवार व्रत की अधिष्ठात्री देवी।',
+      seoTitle: 'संतोषी माता - व्रत कथा, आरती | Akhand Bhakti Sagar',
+    },
+    {
+      name: 'Shani Dev',
+      nameHindi: 'शनिदेव',
+      slug: 'shani-dev',
+      description:
+        'शनिदेव - कर्मफलदाता, न्याय के देवता। शनिवार व्रत की अधिष्ठात्री देवता।',
+      seoTitle: 'शनिदेव - व्रत कथा, आरती, मंत्र | Akhand Bhakti Sagar',
+    },
+    {
+      name: 'Surya Dev',
+      nameHindi: 'सूर्य देव',
+      slug: 'surya-dev',
+      description:
+        'सूर्य देव - प्रत्यक्ष देवता, प्रकाश और ऊर्जा के अधिष्ठाता। रविवार व्रत की अधिष्ठात्री देवता।',
+      seoTitle: 'सूर्य देव - व्रत कथा, आरती, मंत्र | Akhand Bhakti Sagar',
+    },
   ];
 
   const deities: Record<string, string> = {};

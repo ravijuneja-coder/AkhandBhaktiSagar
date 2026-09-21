@@ -45,7 +45,7 @@ export const contentTypeLabels: Record<string, string> = {
   'bhakti-geet': 'भक्ति गीत',
   article: 'भक्ति लेख',
   festival: 'त्योहार',
-  katha: 'कथा',
+  katha: 'व्रत कथा',
 };
 
 /** Human-readable labels for URL slugs, per language */
@@ -60,7 +60,7 @@ export const contentTypeLabelsByLang: { hi: Record<string, string>; en: Record<s
     'bhakti-geet': 'Bhakti Geet',
     article: 'Articles',
     festival: 'Festivals',
-    katha: 'Katha',
+    katha: 'Vrat Katha',
   },
 };
 
@@ -73,7 +73,7 @@ export const contentTypeDescriptions: Record<string, string> = {
   'bhakti-geet': 'भक्ति और भजन के गीत',
   article: 'भक्ति और आध्यात्म पर लेख',
   festival: 'हिंदू त्योहारों की जानकारी',
-  katha: 'धार्मिक कथाएँ और कहानियाँ',
+  katha: 'व्रत और पूजा में पढ़ी जाने वाली पौराणिक कथाएँ',
 };
 
 export const contentTypeDescriptionsByLang: { hi: Record<string, string>; en: Record<string, string> } = {
@@ -87,7 +87,7 @@ export const contentTypeDescriptionsByLang: { hi: Record<string, string>; en: Re
     'bhakti-geet': 'Songs of devotion and bhajan',
     article: 'Articles on devotion and spirituality',
     festival: 'Information about Hindu festivals',
-    katha: 'Religious stories and tales',
+    katha: 'Traditional stories recited during vrat and puja',
   },
 };
 
@@ -98,6 +98,7 @@ export const validContentTypeSlugs = [
   'chalisa',
   'mantra',
   'stotra',
+  'katha',
   'article',
   'festival',
 ];

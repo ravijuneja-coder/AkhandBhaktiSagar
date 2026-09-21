@@ -135,25 +135,55 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
         className="p-6 sm:p-8"
         style={{ background: 'linear-gradient(180deg, #FFFBF5, #FDF6EC)' }}
       >
-        {chunkLines(lyrics, 4).map((chunk, i) => (
-          <pre
-            key={i}
-            className="whitespace-pre-wrap break-words"
-            style={{
-              fontFamily: 'var(--font-devanagari)',
-              fontSize: fontSizeMap[fontSize],
-              lineHeight: '2.2',
-              color: 'var(--color-text-primary)',
-              letterSpacing: '0.01em',
-              marginBottom: chunk.endsWith('\n') ? 0 : '20px',
-            }}
-          >
-            {chunk.replace(/\n$/, '')}
-          </pre>
-        ))}
+        {chunkLines(lyrics, 4).map((chunk, i) => {
+          const text = chunk.replace(/\n$/, '');
+          if (isHeadingLine(text)) {
+            return (
+              <h3
+                key={i}
+                className="font-bold flex items-center gap-2"
+                style={{
+                  fontFamily: 'var(--font-devanagari)',
+                  fontSize: `calc(${fontSizeMap[fontSize]} * 1.15)`,
+                  color: 'var(--maroon)',
+                  marginTop: i === 0 ? 0 : '28px',
+                  marginBottom: '14px',
+                  paddingBottom: '8px',
+                  borderBottom: '2px solid rgba(212,175,55,0.35)',
+                }}
+              >
+                {text}
+              </h3>
+            );
+          }
+          return (
+            <pre
+              key={i}
+              className="whitespace-pre-wrap break-words"
+              style={{
+                fontFamily: 'var(--font-devanagari)',
+                fontSize: fontSizeMap[fontSize],
+                lineHeight: '2.2',
+                color: 'var(--color-text-primary)',
+                letterSpacing: '0.01em',
+                marginBottom: chunk.endsWith('\n') ? 0 : '20px',
+              }}
+            >
+              {text}
+            </pre>
+          );
+        })}
       </div>
     </div>
   );
+}
+
+// A short single line starting with an emoji is treated as a section heading.
+function isHeadingLine(text: string): boolean {
+  if (text.includes('\n')) return false;
+  const trimmed = text.trim();
+  if (trimmed.length === 0 || trimmed.length > 60) return false;
+  return /^\p{Extended_Pictographic}/u.test(trimmed);
 }
 
 // Chunks lyrics into groups of `size` non-blank lines, adding a 20px gap
@@ -174,8 +204,13 @@ function chunkLines(text: string, size: number): string[] {
       flush(true);
       continue;
     }
+    // Force a heading line to always stand alone as its own chunk,
+    // even mid-group, so it can render as a distinct <h3>.
+    if (isHeadingLine(line) && current.length > 0) {
+      flush(false);
+    }
     current.push(line);
-    if (current.length === size) flush(false);
+    if (isHeadingLine(line) || current.length === size) flush(false);
   }
   flush(false);
 

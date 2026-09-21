@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
+import DigitalClock from './DigitalClock';
 import { useTranslation, useLanguage } from '@/lib/i18n';
 
 export default function Header() {
@@ -18,6 +19,7 @@ export default function Header() {
     { label: t('nav', 'chalisa'), href: '/chalisa' },
     { label: t('nav', 'mantra'), href: '/mantra' },
     { label: t('nav', 'stotra'), href: '/stotra' },
+    { label: t('nav', 'vratKatha'), href: '/katha' },
     { label: t('nav', 'article'), href: '/article' },
     { label: t('nav', 'festival'), href: '/festival' },
   ];
@@ -90,6 +92,7 @@ export default function Header() {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              <DigitalClock />
               <LanguageToggle />
 
               {searchOpen ? (

@@ -16,6 +16,7 @@ const dict = {
     stotra: { hi: 'स्तोत्र', en: 'Stotra' },
     article: { hi: 'भक्ति लेख', en: 'Articles' },
     festival: { hi: 'त्योहार', en: 'Festivals' },
+    vratKatha: { hi: 'व्रत कथा', en: 'Vrat Katha' },
     deity: { hi: 'देवी-देवता', en: 'Deities' },
     mainNav: { hi: 'मुख्य नेविगेशन', en: 'Main navigation' },
   },
