@@ -15,13 +15,9 @@ export default function Header() {
 
   const navItems = [
     { label: t('nav', 'home'), href: '/' },
-    { label: t('nav', 'bhajan'), href: '/bhajan' },
     { label: t('nav', 'aarti'), href: '/aarti' },
     { label: t('nav', 'chalisa'), href: '/chalisa' },
-    { label: t('nav', 'mantra'), href: '/mantra' },
-    { label: t('nav', 'stotra'), href: '/stotra' },
     { label: t('nav', 'vratKatha'), href: '/katha' },
-    { label: t('nav', 'article'), href: '/article' },
     { label: t('nav', 'festival'), href: '/festival' },
   ];
 
@@ -67,7 +63,7 @@ export default function Header() {
                   textShadow: '0 1px 8px var(--header-gold-soft)',
                 }}
               >
-                🕉 अखंड भक्ति सागर
+                🕉 {t('header', 'siteName')}
               </span>
               <span className="text-xs hidden sm:block" style={{ color: 'var(--header-text-muted)', letterSpacing: '0.08em' }}>
                 {t('header', 'tagline')}
@@ -149,7 +145,7 @@ export default function Header() {
               className="text-xl font-bold"
               style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
             >
-              🕉 अखंड भक्ति सागर
+              🕉 {t('header', 'siteName')}
             </span>
             <button
               onClick={() => setMenuOpen(false)}

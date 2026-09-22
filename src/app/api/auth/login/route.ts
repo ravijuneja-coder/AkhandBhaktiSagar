@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    await createSession({ userId: 'admin', email, name: 'Admin', role: 'ADMIN' });
+    await createSession({ userId: 'admin', email, name: 'Akhand Bhakti Sagar', role: 'ADMIN' });
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Login error:', error);

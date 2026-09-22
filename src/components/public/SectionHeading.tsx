@@ -4,8 +4,13 @@ import { useTranslation } from '@/lib/i18n';
 
 type HomeKey =
   | 'categoriesHeading'
+  | 'categoriesSubheading'
+  | 'categoriesFooterNote'
   | 'popularBhajans'
   | 'deitiesHeading'
+  | 'deitiesSubheading'
+  | 'deitiesTagline'
+  | 'deitiesFooterNote'
   | 'latestHeading'
   | 'viewAll'
   | 'comingSoonHeading'

@@ -54,9 +54,8 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         {/* Logo */}
         <div className="px-6 py-5 border-b border-white/10">
           <div className="text-saffron-400 font-bold text-lg leading-tight">
-            🕉️ Akhand Bhakti
+            🕉️ Akhand Bhakti Sagar
           </div>
-          <div className="text-white/50 text-xs mt-0.5">Admin Panel</div>
         </div>
 
         {/* Nav */}

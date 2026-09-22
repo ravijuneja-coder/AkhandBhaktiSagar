@@ -21,6 +21,7 @@ const dict = {
     mainNav: { hi: 'मुख्य नेविगेशन', en: 'Main navigation' },
   },
   header: {
+    siteName: { hi: 'अखंड भक्ति सागर', en: 'Akhand Bhakti Sagar' },
     tagline: { hi: 'भजन • आरती • चालीसा • मंत्र', en: 'Bhajan • Aarti • Chalisa • Mantra' },
     openSearch: { hi: 'खोज खोलें', en: 'Open search' },
     closeMenu: { hi: 'मेनू बंद करें', en: 'Close menu' },
@@ -131,9 +132,17 @@ const dict = {
   },
   home: {
     categoriesHeading: { hi: 'भक्ति श्रेणियाँ', en: 'Devotional Categories' },
+    categoriesSubheading: {
+      hi: 'अपनी आस्था के अनुसार चुनें और दिव्य कथाओं, आरतियों व स्तुतियों का आनन्द लें',
+      en: 'Choose as per your faith and enjoy divine stories, aartis and hymns',
+    },
+    categoriesFooterNote: { hi: 'भक्ति से ही जीवन में शांति, शक्ति और सद्प्रेरणा मिलती है', en: 'Devotion brings peace, strength and inspiration into life' },
     popularBhajans: { hi: 'लोकप्रिय भजन', en: 'Popular Bhajans' },
     viewAll: { hi: 'सभी देखें →', en: 'View All →' },
     deitiesHeading: { hi: 'देवी-देवता', en: 'Deities' },
+    deitiesSubheading: { hi: '॥ श्रद्धा, भक्ति और आस्था का दिव्य संगम ॥', en: '॥ A Divine Confluence of Faith and Devotion ॥' },
+    deitiesTagline: { hi: 'भक्ति से ही मिलती है जीवन में शक्ति, शांति और सुख', en: 'Devotion brings strength, peace and happiness into life' },
+    deitiesFooterNote: { hi: 'सभी देवी-देवताओं की कृपा आप पर सदैव बनी रहे', en: 'May the blessings of all deities always be upon you' },
     latestHeading: { hi: 'नए भजन और आरती', en: 'Latest Bhajans & Aartis' },
     comingSoonHeading: { hi: 'जल्द ही उपलब्ध होगा', en: 'Coming Soon' },
     comingSoonText: {
@@ -173,12 +182,20 @@ const dict = {
       hi: 'विघ्नहर्ता श्री गणेश जी की कृपा से हर बाधा दूर हो। पढ़ें गणेश भजन, आरती, चालीसा और स्तोत्र।',
       en: "May Lord Ganesha's grace remove every obstacle. Read Ganesh bhajans, aarti, chalisa and stotra.",
     },
-    heroCtaPrimary: { hi: 'गणेश भजन पढ़ें', en: 'Read Ganesh Bhajans' },
-    heroCtaSecondary: { hi: 'गणेश चालीसा', en: 'Ganesh Chalisa' },
+    heroCtaPrimary: { hi: 'गणेश भजन सुनें →', en: 'Listen to Ganesh Bhajan →' },
+    heroCtaSecondary: { hi: 'गणेश कथा पढ़ें →', en: 'Read Ganesh Katha →' },
     heroStatModak: { hi: 'मोदक भोग', en: 'Modak Bhog' },
     heroStatDays: { hi: 'दिवसीय उत्सव', en: 'Days of Celebration' },
     heroStatAarti: { hi: 'आरती संग्रह', en: 'Aarti Collection' },
     heroStatChalisa: { hi: 'चालीसा पाठ', en: 'Chalisa Path' },
+    heroSideKicker1: { hi: '॥ वक्रतुंड ॥', en: '॥ Vakratunda ॥' },
+    heroSideKicker2: { hi: '॥ महाकाय ॥', en: '॥ Mahakaya ॥' },
+    heroTagline: { hi: 'भक्ति से प्रारंभ, मंगलमय जीवन का मार्ग', en: 'Beginning with devotion, the path to an auspicious life' },
+    heroStatDevotees: { hi: 'भक्तों का विश्वास', en: 'Devotees Trust Us' },
+    heroStatBhajanAarti: { hi: 'भजन व आरती', en: 'Bhajans & Aartis' },
+    heroStatVratKatha: { hi: 'व्रत कथाएँ', en: 'Vrat Kathas' },
+    heroStatDeities: { hi: 'देवताओं की जानकारी', en: 'Deities Covered' },
+    heroTopBlessing: { hi: '॥ श्री गणेशाय नम: ॥', en: '॥ Shri Ganeshaya Namah ॥' },
   },
 } as const;
 

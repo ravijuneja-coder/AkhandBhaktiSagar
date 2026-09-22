@@ -18,7 +18,7 @@ async function main() {
       email: adminEmail,
       username: 'admin',
       password: hashedPassword,
-      name: 'Admin',
+      name: 'Akhand Bhakti Sagar',
       role: 'ADMIN',
     },
   });

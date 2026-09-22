@@ -114,6 +114,15 @@ body {
   margin: 1.5em 0;
 }
 
+/* ─── Scrollbar-less horizontal scroll (e.g. month tabs) ─── */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── Focus Styles ─── */
 :focus-visible {
   outline: 2px solid var(--saffron);

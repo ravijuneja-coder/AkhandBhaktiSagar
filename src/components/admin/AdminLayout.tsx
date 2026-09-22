@@ -29,7 +29,7 @@ export default function AdminLayout({ children, userEmail }: AdminLayoutProps) {
                 ☰
               </button>
               <h1 className="text-gray-800 font-semibold text-sm hidden sm:block">
-                Akhand Bhakti Sagar — Admin
+                Akhand Bhakti Sagar
               </h1>
             </div>
 

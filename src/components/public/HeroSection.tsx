@@ -3,64 +3,41 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from '@/lib/i18n';
-import DeitySymbol from './DeitySymbol';
 
 // Toggle this off once Ganesh Chaturthi ends to revert to the default hero.
 const GANESH_CHATURTHI_MODE = true;
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  bhajanAartiCount?: number;
+  kathaCount?: number;
+  deityCount?: number;
+}
+
+export default function HeroSection({ bhajanAartiCount = 0, kathaCount = 0, deityCount = 0 }: HeroSectionProps) {
+  if (GANESH_CHATURTHI_MODE) {
+    return <GaneshHero bhajanAartiCount={bhajanAartiCount} kathaCount={kathaCount} deityCount={deityCount} />;
+  }
+  return <DefaultHero />;
+}
+
+function DefaultHero() {
   const { t, lang } = useTranslation();
 
-  const defaultStats = [
+  const stats = [
     { num: lang === 'hi' ? '५०००+' : '5000+', label: t('hero', 'statBhajan') },
     { num: lang === 'hi' ? '५००+' : '500+', label: t('hero', 'statAarti') },
     { num: lang === 'hi' ? '१००+' : '100+', label: t('hero', 'statChalisa') },
     { num: lang === 'hi' ? '१०००+' : '1000+', label: t('hero', 'statMantra') },
   ];
 
-  const ganeshStats = [
-    { num: lang === 'hi' ? '२१' : '21', label: t('ganeshChaturthi', 'heroStatModak') },
-    { num: lang === 'hi' ? '११' : '11', label: t('ganeshChaturthi', 'heroStatDays') },
-    { num: lang === 'hi' ? '५००+' : '500+', label: t('ganeshChaturthi', 'heroStatAarti') },
-    { num: lang === 'hi' ? '४०' : '40', label: t('ganeshChaturthi', 'heroStatChalisa') },
-  ];
-
-  const isGanesh = GANESH_CHATURTHI_MODE;
-  const stats = isGanesh ? ganeshStats : defaultStats;
-
   return (
     <section
       className="relative overflow-hidden"
       style={{
-        background: isGanesh
-          ? 'linear-gradient(135deg, var(--header-dark) 0%, var(--deep-orange) 40%, var(--saffron) 75%, var(--header-gold) 100%)'
-          : 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 35%, var(--deep-orange) 70%, var(--saffron) 100%)',
+        background: 'linear-gradient(135deg, var(--header-darker) 0%, var(--header-bg-1) 35%, var(--deep-orange) 70%, var(--saffron) 100%)',
         minHeight: '560px',
       }}
     >
-      {/* Background photo (Ganesh Chaturthi) */}
-      {isGanesh && (
-        <>
-          <Image
-            src="/images/ganesh-hero.png"
-            alt=""
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-          {/* Dark overlay for text readability */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(30,8,6,0.65) 0%, rgba(40,10,6,0.55) 45%, rgba(30,8,6,0.75) 100%)',
-            }}
-          />
-        </>
-      )}
-
       {/* Mandala rings */}
       <svg
         aria-hidden="true"
@@ -110,28 +87,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Toran / garland strip for Ganesh Chaturthi */}
-      {isGanesh && (
-        <svg
-          aria-hidden="true"
-          className="absolute top-0 left-0 w-full"
-          style={{ height: '38px', opacity: 0.9 }}
-          viewBox="0 0 1200 38"
-          preserveAspectRatio="none"
-        >
-          {Array.from({ length: 24 }).map((_, i) => {
-            const x = i * 50 + 25;
-            return (
-              <g key={i}>
-                <path d={`M${x - 25} 0 Q${x} 30 ${x + 25} 0`} fill="none" stroke="#2D6A2E" strokeWidth="2" opacity="0.6" />
-                <circle cx={x} cy="18" r="5" fill="#FF6B00" />
-                <path d={`M${x} 13 L${x - 4} 6 L${x + 4} 6 Z`} fill="#2D6A2E" />
-              </g>
-            );
-          })}
-        </svg>
-      )}
-
       {/* Temple arch silhouette at base */}
       <svg
         aria-hidden="true"
@@ -148,7 +103,7 @@ export default function HeroSection() {
              M760 90 L760 55 Q820 20 880 55 L880 90 Z
              M920 90 L920 40 Q980 5 1040 40 L1040 90 Z
              M1080 90 L1080 55 Q1140 20 1200 55 L1200 90 Z"
-          fill={isGanesh ? 'var(--header-dark)' : 'var(--header-darker)'}
+          fill="var(--header-darker)"
         />
       </svg>
 
@@ -163,18 +118,6 @@ export default function HeroSection() {
         <DiyaIcon size={20} />
       </div>
 
-      {/* Floating modaks for Ganesh Chaturthi */}
-      {isGanesh && (
-        <>
-          <div aria-hidden="true" className="absolute right-[7%] top-[20%] hidden sm:block" style={{ opacity: 0.8 }}>
-            <ModakIcon size={30} />
-          </div>
-          <div aria-hidden="true" className="absolute left-[10%] bottom-[28%] hidden lg:block" style={{ opacity: 0.6 }}>
-            <ModakIcon size={22} />
-          </div>
-        </>
-      )}
-
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
         {/* Medallion */}
         <div
@@ -182,18 +125,12 @@ export default function HeroSection() {
           style={{
             width: '76px',
             height: '76px',
-            background: isGanesh
-              ? 'none'
-              : 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, rgba(212,175,55,0.05) 70%)',
+            background: 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, rgba(212,175,55,0.05) 70%)',
             border: '2px solid rgba(255,215,0,0.5)',
             boxShadow: '0 0 24px rgba(255,215,0,0.3)',
           }}
         >
-          {isGanesh ? (
-            <DeitySymbol slug="ganesh-ji" />
-          ) : (
-            <span style={{ fontSize: '2rem', color: 'var(--header-gold)', textShadow: '0 0 16px rgba(255,215,0,0.5)' }}>🕉</span>
-          )}
+          <span style={{ fontSize: '2rem', color: 'var(--header-gold)', textShadow: '0 0 16px rgba(255,215,0,0.5)' }}>🕉</span>
         </div>
 
         {/* Sanskrit greeting */}
@@ -205,7 +142,7 @@ export default function HeroSection() {
             letterSpacing: '0.25em',
           }}
         >
-          {isGanesh ? t('ganeshChaturthi', 'heroKicker') : t('hero', 'kicker')}
+          {t('hero', 'kicker')}
         </p>
 
         {/* Main heading */}
@@ -218,7 +155,7 @@ export default function HeroSection() {
             textWrap: 'balance',
           }}
         >
-          {isGanesh ? t('ganeshChaturthi', 'heroTitle') : t('hero', 'title')}
+          {t('hero', 'title')}
         </h1>
 
         {/* Subheading */}
@@ -230,7 +167,7 @@ export default function HeroSection() {
             letterSpacing: '0.12em',
           }}
         >
-          {isGanesh ? t('ganeshChaturthi', 'heroSubheading') : t('hero', 'subheading')}
+          {t('hero', 'subheading')}
         </p>
 
         <p
@@ -241,13 +178,13 @@ export default function HeroSection() {
             lineHeight: '1.8',
           }}
         >
-          {isGanesh ? t('ganeshChaturthi', 'heroDescription') : t('hero', 'description')}
+          {t('hero', 'description')}
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
           <Link
-            href={isGanesh ? '/deity/ganesh-ji' : '/bhajan'}
+            href="/bhajan"
             className="px-8 py-3 rounded-lg font-bold text-base transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             style={{
               fontFamily: 'var(--font-devanagari)',
@@ -256,10 +193,10 @@ export default function HeroSection() {
               boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
             }}
           >
-            {isGanesh ? t('ganeshChaturthi', 'heroCtaPrimary') : t('hero', 'ctaBhajan')}
+            {t('hero', 'ctaBhajan')}
           </Link>
           <Link
-            href={isGanesh ? '/chalisa' : '/aarti'}
+            href="/aarti"
             className="px-8 py-3 rounded-lg font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
             style={{
               fontFamily: 'var(--font-devanagari)',
@@ -269,7 +206,7 @@ export default function HeroSection() {
               backdropFilter: 'blur(4px)',
             }}
           >
-            {isGanesh ? t('ganeshChaturthi', 'heroCtaSecondary') : t('hero', 'ctaToday')}
+            {t('hero', 'ctaToday')}
           </Link>
         </div>
 
@@ -305,6 +242,209 @@ export default function HeroSection() {
   );
 }
 
+function GaneshHero({ bhajanAartiCount, kathaCount, deityCount }: { bhajanAartiCount: number; kathaCount: number; deityCount: number }) {
+  const { t, lang } = useTranslation();
+  const fmt = (n: number) => n.toLocaleString(lang === 'hi' ? 'hi-IN' : 'en-IN');
+
+  const stats = [
+    { icon: '🙏', num: '1M+', label: t('ganeshChaturthi', 'heroStatDevotees') },
+    { icon: '▶', num: fmt(bhajanAartiCount), label: t('ganeshChaturthi', 'heroStatBhajanAarti') },
+    { icon: '📖', num: fmt(kathaCount), label: t('ganeshChaturthi', 'heroStatVratKatha') },
+    { icon: '🪷', num: fmt(deityCount), label: t('ganeshChaturthi', 'heroStatDeities') },
+  ];
+
+  return (
+    <section
+      className="relative overflow-hidden"
+      style={{ background: 'linear-gradient(115deg, #2B1608 0%, #4A2410 35%, #7A3D12 70%, #B5651D 100%)' }}
+    >
+      {/* Ambient gold glow, top-right */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-32 -right-20 rounded-full pointer-events-none"
+        style={{ width: '520px', height: '520px', background: 'radial-gradient(circle, rgba(255,215,120,0.18) 0%, transparent 70%)' }}
+      />
+
+      {/* Mandala rings, right */}
+      <svg aria-hidden="true" className="absolute top-1/2 -translate-y-1/2 -right-24 opacity-[0.14] hidden lg:block pointer-events-none" width="420" height="420" viewBox="0 0 420 420">
+        <g fill="none" stroke="var(--header-gold)" strokeWidth="1">
+          <circle cx="210" cy="210" r="200" />
+          <circle cx="210" cy="210" r="165" strokeDasharray="4 6" />
+          <circle cx="210" cy="210" r="130" />
+        </g>
+      </svg>
+
+      {/* Temple silhouette, bottom right */}
+      <svg aria-hidden="true" className="absolute bottom-0 right-0 opacity-[0.16] hidden md:block pointer-events-none" width="260" height="120" viewBox="0 0 220 200" fill="none">
+        <path d="M110 10 L130 40 H90 Z" fill="var(--header-gold)" />
+        <rect x="98" y="38" width="24" height="18" fill="var(--header-gold)" />
+        <path d="M60 70 L80 95 H40 Z" fill="var(--header-gold)" />
+        <path d="M160 70 L180 95 H140 Z" fill="var(--header-gold)" />
+        <rect x="70" y="90" width="80" height="30" fill="var(--header-gold)" />
+        <rect x="30" y="90" width="20" height="30" fill="var(--header-gold)" />
+        <rect x="170" y="90" width="20" height="30" fill="var(--header-gold)" />
+        <rect x="10" y="118" width="200" height="82" fill="var(--header-gold)" />
+      </svg>
+
+      {/* Lotus dot pattern */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 80%, var(--header-gold) 1px, transparent 1px),
+                            radial-gradient(circle at 80% 20%, var(--header-gold) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
+
+      {/* Background photo: Ganesh figure + temple scenery, left-anchored */}
+      <div className="hidden lg:block absolute inset-y-0 left-0 w-[52%]" aria-hidden="true">
+        <div
+          className="absolute rounded-full"
+          style={{
+            left: '20%',
+            top: '18%',
+            width: '340px',
+            height: '340px',
+            background: 'radial-gradient(circle, rgba(255,200,90,0.35) 0%, transparent 70%)',
+          }}
+        />
+        <Image
+          src="/images/ganesh-figure-only.png"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          style={{ objectPosition: '45% 25%' }}
+          sizes="52vw"
+        />
+        {/* Fade into the right-side background so text stays readable */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(90deg, transparent 55%, #5C2A0E 98%)' }}
+        />
+      </div>
+
+      {/* Diya flourish, bottom-left over photo */}
+      <div aria-hidden="true" className="absolute left-4 bottom-3 text-3xl opacity-90 hidden lg:block" style={{ filter: 'drop-shadow(0 0 14px rgba(255,180,60,0.5))' }}>
+        🪔
+      </div>
+
+      {/* Mobile/tablet photo: shown above the text, not as a background */}
+      <div className="lg:hidden relative w-full" style={{ height: '260px' }}>
+        <Image
+          src="/images/ganesh-figure-only.png"
+          alt={t('ganeshChaturthi', 'heroTitle')}
+          fill
+          priority
+          className="object-cover"
+          style={{ objectPosition: 'center 20%' }}
+          sizes="100vw"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 60%, #5C2A0E 100%)' }} />
+      </div>
+
+      {/* Side kicker text over the photo */}
+      <div
+        className="hidden lg:block absolute left-[4%] top-[10%] text-center z-10"
+        style={{ fontFamily: 'var(--font-devanagari)', color: '#FFFFFF', textShadow: '0 1px 8px rgba(0,0,0,0.4)' }}
+      >
+        <p className="text-base font-semibold leading-snug">{t('ganeshChaturthi', 'heroSideKicker1')}</p>
+        <p className="text-base font-semibold leading-snug">{t('ganeshChaturthi', 'heroSideKicker2')}</p>
+        <div className="mx-auto mt-2 w-8 h-px" style={{ background: '#FFFFFF', opacity: 0.7 }} />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        {/* Text content, right-aligned over the photo/background */}
+        <div className="relative z-10 text-center lg:text-right lg:ml-auto lg:max-w-lg">
+          {/* Top blessing line with lotus + divider */}
+          <div className="flex items-center justify-center lg:justify-end gap-2 mb-2" aria-hidden="true">
+            <span style={{ width: '24px', height: '1px', background: 'var(--header-gold)', opacity: 0.5 }} />
+            <span style={{ fontSize: '0.85rem' }}>🪷</span>
+            <span style={{ width: '24px', height: '1px', background: 'var(--header-gold)', opacity: 0.5 }} />
+          </div>
+          <p
+            className="text-sm sm:text-base font-semibold mb-2"
+            style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
+          >
+            {t('ganeshChaturthi', 'heroTopBlessing')}
+          </p>
+
+          <h1
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight"
+            style={{ fontFamily: 'var(--font-devanagari)', textWrap: 'balance', textShadow: '0 2px 20px rgba(0,0,0,0.35)' }}
+          >
+            <span style={{ color: '#FFFFFF' }}>{t('ganeshChaturthi', 'heroTitle').split(' ')[0]}</span>{' '}
+            <span style={{ color: 'var(--header-gold)' }}>{t('ganeshChaturthi', 'heroTitle').split(' ').slice(1).join(' ')}</span>
+          </h1>
+          <p
+            className="text-base sm:text-lg mb-5"
+            style={{ fontFamily: 'var(--font-devanagari)', color: 'rgba(255,235,210,0.85)' }}
+          >
+            {t('ganeshChaturthi', 'heroTagline')}
+          </p>
+
+          <div className="flex flex-wrap gap-3 justify-center lg:justify-end">
+            <Link
+              href="/bhajan"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold text-sm sm:text-base transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+              style={{
+                fontFamily: 'var(--font-devanagari)',
+                background: 'linear-gradient(135deg, var(--header-text), var(--header-gold))',
+                color: 'var(--header-darker)',
+                boxShadow: '0 4px 20px rgba(212,175,55,0.4)',
+              }}
+            >
+              🎧 {t('ganeshChaturthi', 'heroCtaPrimary')}
+            </Link>
+            <Link
+              href="/katha"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold text-sm sm:text-base transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                fontFamily: 'var(--font-devanagari)',
+                background: 'rgba(255,255,255,0.1)',
+                color: '#FFFFFF',
+                border: '2px solid rgba(255,215,120,0.6)',
+                backdropFilter: 'blur(4px)',
+              }}
+            >
+              📖 {t('ganeshChaturthi', 'heroCtaSecondary')}
+            </Link>
+          </div>
+        </div>
+
+        {/* Stat bar */}
+        <div
+          className="relative z-10 mt-8 rounded-2xl shadow-lg grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x"
+          style={{ background: 'rgba(25,12,5,0.55)', border: '1px solid rgba(255,215,120,0.3)', backdropFilter: 'blur(10px)', borderColor: 'rgba(255,215,120,0.25)' }}
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="flex items-center gap-3 px-5 py-4" style={{ borderColor: 'rgba(255,215,120,0.25)' }}>
+              <span
+                className="flex items-center justify-center rounded-full shrink-0"
+                style={{ width: '36px', height: '36px', background: 'rgba(255,215,120,0.2)', fontSize: '1rem' }}
+              >
+                {stat.icon}
+              </span>
+              <div>
+                <div className="text-base sm:text-lg font-bold" style={{ color: 'var(--header-gold)', textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>
+                  {stat.num}
+                </div>
+                <div
+                  className="text-xs sm:text-sm"
+                  style={{ fontFamily: 'var(--font-devanagari)', color: 'rgba(255,240,220,0.9)', textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}
+                >
+                  {stat.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function DiyaIcon({ size }: { size: number }) {
   return (
     <svg width={size} height={size * 1.15} viewBox="0 0 40 46" fill="none">
@@ -326,20 +466,6 @@ function DiyaIcon({ size }: { size: number }) {
         fill="none"
       />
       <ellipse cx="20" cy="26" rx="16" ry="4" fill="var(--header-gold)" opacity="0.85" />
-    </svg>
-  );
-}
-
-function ModakIcon({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size * 1.1} viewBox="0 0 40 44" fill="none">
-      <path
-        d="M20 6c-11 0-18 8-18 19s7 17 18 17 18-6 18-17S31 6 20 6z"
-        fill="var(--header-gold)"
-        opacity="0.92"
-      />
-      <path d="M9 13q11 -10 22 0" stroke="#B34700" strokeWidth="2.5" fill="none" />
-      <circle cx="20" cy="27" r="3" fill="#B34700" opacity="0.7" />
     </svg>
   );
 }

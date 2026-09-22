@@ -44,7 +44,7 @@ const socialLinks = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   const categoryLinks = [
     { label: t('nav', 'bhajan'), href: '/bhajan' },
@@ -89,7 +89,7 @@ export default function Footer() {
               className="text-2xl font-bold mb-3"
               style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--header-gold)' }}
             >
-              🕉 अखंड भक्ति सागर
+              🕉 {t('header', 'siteName')}
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--header-text-muted)', fontFamily: 'var(--font-devanagari)' }}>
               {t('footer', 'about')}
@@ -209,7 +209,7 @@ export default function Footer() {
           fontFamily: 'var(--font-devanagari)',
         }}
       >
-        © {year} अखंड भक्ति सागर। {t('footer', 'rights')}{' '}
+        © {year} {t('header', 'siteName')}{lang === 'hi' ? '।' : '.'} {t('footer', 'rights')}{' '}
         <span style={{ color: 'var(--saffron)' }}>🕉</span>{' '}
         {t('footer', 'madeWith')}
       </div>

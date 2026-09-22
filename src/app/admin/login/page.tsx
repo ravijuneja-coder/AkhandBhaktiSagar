@@ -66,7 +66,6 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🕉️</div>
           <h1 className="text-2xl font-bold text-gray-900">Akhand Bhakti Sagar</h1>
-          <p className="text-gray-500 text-sm mt-1">Admin Login</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
@@ -133,7 +132,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          🙏 Akhand Bhakti Sagar — Admin Panel
+          🙏 Akhand Bhakti Sagar
         </p>
       </div>
     </div>
