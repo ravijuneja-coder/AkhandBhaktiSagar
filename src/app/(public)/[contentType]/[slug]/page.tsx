@@ -123,15 +123,23 @@ export default async function PostPage({ params }: Props) {
             <article className="lg:col-span-2">
               {/* Featured image */}
               {post.featuredImage && (
-                <div className="relative rounded-2xl overflow-hidden mb-8" style={{ aspectRatio: '16/9' }}>
-                  <Image
-                    src={post.featuredImage}
-                    alt={post.imageAlt || post.title}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 100vw, 66vw"
-                  />
+                <div
+                  className="relative rounded-2xl overflow-hidden mb-8"
+                  style={{ aspectRatio: '16/9', padding: '5px', background: 'linear-gradient(135deg, var(--gold), var(--saffron), var(--gold))' }}
+                >
+                  <div className="relative w-full h-full rounded-[14px] overflow-hidden">
+                    <Image
+                      src={post.featuredImage}
+                      alt={post.imageAlt || post.title}
+                      fill
+                      className="object-cover"
+                      priority
+                      sizes="(max-width: 768px) 100vw, 66vw"
+                    />
+                    {/* Corner ornaments */}
+                    <span aria-hidden="true" className="absolute top-2 left-2 text-lg opacity-90" style={{ filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.5))' }}>🪷</span>
+                    <span aria-hidden="true" className="absolute top-2 right-2 text-lg opacity-90" style={{ filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.5))' }}>🪷</span>
+                  </div>
                 </div>
               )}
 
@@ -149,23 +157,34 @@ export default async function PostPage({ params }: Props) {
 
               {/* Title */}
               <h1
-                className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight"
+                className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 leading-tight"
                 style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)', textWrap: 'balance' }}
               >
                 {post.title}
               </h1>
 
+              {/* Gold divider */}
+              <div className="flex items-center gap-3 mb-4" aria-hidden="true">
+                <span style={{ width: '36px', height: '2px', background: 'linear-gradient(90deg, var(--gold), transparent)' }} />
+                <span style={{ color: 'var(--gold)', fontSize: '0.9rem' }}>🕉</span>
+                <span style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(212,175,55,0.4), transparent)' }} />
+              </div>
+
               {/* Meta */}
               <div
-                className="flex flex-wrap items-center gap-4 text-sm mb-6 pb-6"
+                className="flex flex-wrap items-center gap-3 text-sm mb-6 pb-6"
                 style={{ borderBottom: '1px solid var(--color-border)' }}
               >
-                <span style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-devanagari)' }}>
+                <span
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                  style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-devanagari)', background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)' }}
+                >
                   ✍️ {post.author.name}
                 </span>
                 <time
                   dateTime={post.publishedAt?.toISOString()}
-                  style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-devanagari)' }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                  style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-devanagari)', background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)' }}
                 >
                   📅 {formattedDate}
                 </time>
@@ -173,29 +192,40 @@ export default async function PostPage({ params }: Props) {
 
               {/* Description */}
               {post.description && (
-                <p
-                  className="text-base leading-relaxed mb-6 p-4 rounded-xl"
+                <div
+                  className="relative text-base leading-relaxed mb-6 p-5 pl-7 rounded-xl overflow-hidden"
                   style={{
                     fontFamily: 'var(--font-devanagari)',
                     color: 'var(--color-text-secondary)',
-                    background: 'rgba(255,107,0,0.04)',
-                    border: '1px solid rgba(255,107,0,0.1)',
+                    background: 'linear-gradient(135deg, rgba(255,107,0,0.05), rgba(212,175,55,0.06))',
+                    border: '1px solid rgba(255,107,0,0.12)',
                     lineHeight: '1.9',
                   }}
                 >
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-0 bottom-0"
+                    style={{ width: '4px', background: 'linear-gradient(180deg, var(--gold), var(--saffron))' }}
+                  />
+                  <span aria-hidden="true" className="absolute -top-1 right-3 text-4xl opacity-[0.12]" style={{ fontFamily: 'Georgia, serif', color: 'var(--maroon)' }}>❝</span>
                   {post.description}
-                </p>
+                </div>
               )}
 
               {/* Lyrics */}
               {post.lyrics && (
                 <div className="mb-8">
-                  <h2
-                    className="text-xl font-bold mb-4"
-                    style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
-                  >
-                    गीत / बोल
-                  </h2>
+                  <div className="flex items-center gap-3 mb-4" aria-hidden="true">
+                    <span style={{ width: '28px', height: '1px', background: 'var(--gold)', opacity: 0.5 }} />
+                    <span style={{ color: 'var(--gold)' }}>🎵</span>
+                    <h2
+                      className="text-xl font-bold"
+                      style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
+                    >
+                      गीत / बोल
+                    </h2>
+                    <span style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(212,175,55,0.4), transparent)' }} />
+                  </div>
                   <LyricsViewer lyrics={post.lyrics} title={post.title} />
                 </div>
               )}
@@ -203,12 +233,17 @@ export default async function PostPage({ params }: Props) {
               {/* Video */}
               {(post.videoUrl || post.embedCode) && post.videoType !== 'NONE' && (
                 <div className="mb-8">
-                  <h2
-                    className="text-xl font-bold mb-4"
-                    style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
-                  >
-                    वीडियो
-                  </h2>
+                  <div className="flex items-center gap-3 mb-4" aria-hidden="true">
+                    <span style={{ width: '28px', height: '1px', background: 'var(--gold)', opacity: 0.5 }} />
+                    <span style={{ color: 'var(--gold)' }}>▶</span>
+                    <h2
+                      className="text-xl font-bold"
+                      style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
+                    >
+                      वीडियो
+                    </h2>
+                    <span style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(212,175,55,0.4), transparent)' }} />
+                  </div>
                   <VideoPlayer
                     videoType={post.videoType}
                     videoUrl={post.videoUrl}
@@ -234,9 +269,10 @@ export default async function PostPage({ params }: Props) {
 
               {/* Share */}
               <div
-                className="mb-8 p-5 rounded-xl"
-                style={{ background: 'rgba(255,107,0,0.04)', border: '1px solid var(--color-border)' }}
+                className="relative mb-8 p-5 rounded-xl overflow-hidden"
+                style={{ background: 'linear-gradient(135deg, rgba(255,107,0,0.05), rgba(212,175,55,0.07))', border: '1px solid rgba(212,175,55,0.2)' }}
               >
+                <span aria-hidden="true" className="absolute -right-4 -top-4 text-6xl opacity-[0.06]">🪷</span>
                 <ShareButtons title={post.title} url={postUrl} />
               </div>
 
@@ -249,10 +285,10 @@ export default async function PostPage({ params }: Props) {
                   {prev && prevUrl && (
                     <Link
                       href={prevUrl}
-                      className="p-4 rounded-xl transition-all hover:shadow-md"
-                      style={{ background: 'white', border: '1px solid var(--color-border)' }}
+                      className="p-4 rounded-xl transition-all hover:shadow-md hover:-translate-y-0.5"
+                      style={{ background: 'white', border: '1px solid var(--color-border)', borderLeft: '3px solid var(--gold)' }}
                     >
-                      <span className="text-xs block mb-1" style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-devanagari)' }}>← पिछला</span>
+                      <span className="text-xs block mb-1" style={{ color: 'var(--gold)', fontFamily: 'var(--font-devanagari)' }}>← पिछला</span>
                       <span className="text-sm font-medium line-clamp-2" style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}>
                         {prev.title}
                       </span>
@@ -261,10 +297,10 @@ export default async function PostPage({ params }: Props) {
                   {next && nextUrl && (
                     <Link
                       href={nextUrl}
-                      className="p-4 rounded-xl text-right transition-all hover:shadow-md"
-                      style={{ background: 'white', border: '1px solid var(--color-border)' }}
+                      className="p-4 rounded-xl text-right transition-all hover:shadow-md hover:-translate-y-0.5"
+                      style={{ background: 'white', border: '1px solid var(--color-border)', borderRight: '3px solid var(--gold)' }}
                     >
-                      <span className="text-xs block mb-1" style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-devanagari)' }}>अगला →</span>
+                      <span className="text-xs block mb-1" style={{ color: 'var(--gold)', fontFamily: 'var(--font-devanagari)' }}>अगला →</span>
                       <span className="text-sm font-medium line-clamp-2" style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}>
                         {next.title}
                       </span>
@@ -280,25 +316,39 @@ export default async function PostPage({ params }: Props) {
                 {/* Deity info */}
                 {post.deity && (
                   <div
-                    className="p-5 rounded-xl text-center"
-                    style={{ background: 'white', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-card)' }}
+                    className="relative p-5 rounded-xl text-center overflow-hidden"
+                    style={{ background: 'linear-gradient(180deg, #FFFBF2, #FFFFFF)', border: '1px solid rgba(212,175,55,0.25)', boxShadow: 'var(--shadow-card)' }}
                   >
+                    {/* Faint mandala ring behind medallion */}
+                    <svg aria-hidden="true" className="absolute left-1/2 top-4 -translate-x-1/2 opacity-[0.12]" width="130" height="130" viewBox="0 0 130 130">
+                      <circle cx="65" cy="65" r="62" fill="none" stroke="var(--gold)" strokeWidth="1" />
+                      <circle cx="65" cy="65" r="50" fill="none" stroke="var(--gold)" strokeWidth="1" strokeDasharray="3 5" />
+                    </svg>
+
                     {post.deity.image && (
-                      <div className="relative w-20 h-20 rounded-full overflow-hidden mx-auto mb-3" style={{ border: '2px solid var(--header-gold)' }}>
+                      <div
+                        className="relative w-20 h-20 rounded-full overflow-hidden mx-auto mb-3"
+                        style={{ border: '2px solid var(--header-gold)', boxShadow: '0 0 0 4px rgba(212,175,55,0.15), 0 4px 14px rgba(212,175,55,0.3)' }}
+                      >
                         <Image src={post.deity.image} alt={post.deity.nameHindi || post.deity.name} fill className="object-cover" sizes="80px" />
                       </div>
                     )}
-                    {!post.deity.image && <div className="text-3xl mb-2">🕉</div>}
+                    {!post.deity.image && <div className="relative text-3xl mb-2">🕉</div>}
                     <h3
-                      className="text-lg font-bold mb-1"
+                      className="relative text-lg font-bold mb-1"
                       style={{ fontFamily: 'var(--font-devanagari)', color: 'var(--maroon)' }}
                     >
                       {post.deity.nameHindi || post.deity.name}
                     </h3>
+                    <div className="relative flex items-center justify-center gap-2 mb-3" aria-hidden="true">
+                      <span style={{ width: '20px', height: '1px', background: 'var(--gold)', opacity: 0.5 }} />
+                      <span style={{ color: 'var(--gold)', fontSize: '0.7rem' }}>🪷</span>
+                      <span style={{ width: '20px', height: '1px', background: 'var(--gold)', opacity: 0.5 }} />
+                    </div>
                     <Link
                       href={`/deity/${post.deity.slug}`}
-                      className="text-xs font-medium px-3 py-1.5 rounded-full inline-block mt-2 transition-colors hover:opacity-80"
-                      style={{ fontFamily: 'var(--font-devanagari)', background: 'var(--saffron)', color: 'white' }}
+                      className="relative text-xs font-medium px-4 py-1.5 rounded-full inline-block transition-transform hover:-translate-y-0.5"
+                      style={{ fontFamily: 'var(--font-devanagari)', background: 'linear-gradient(135deg, var(--saffron), var(--gold))', color: 'white', boxShadow: '0 3px 10px rgba(212,175,55,0.35)' }}
                     >
                       सभी भजन देखें
                     </Link>
