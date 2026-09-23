@@ -67,7 +67,13 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    return [];
+    return [
+      {
+        source: '/aarti/krishna-aarti-om-jai-jagdish-hare',
+        destination: '/aarti/om-jai-jagdish-hare',
+        permanent: true,
+      },
+    ];
   },
   poweredByHeader: false,
   compress: true,
