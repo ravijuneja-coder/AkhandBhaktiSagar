@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from '@/lib/i18n';
 import { useSiteTheme } from '@/lib/theme-context';
 
@@ -16,6 +16,8 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
   const { theme } = useSiteTheme();
 
   const fontSizeMap = { sm: '1.05rem', md: '1.2rem', lg: '1.4rem' };
+  const refrainCounts = useMemo(() => countLineOccurrences(lyrics), [lyrics]);
+  const chunks = useMemo(() => chunkLines(lyrics), [lyrics]);
 
   const handleCopy = async () => {
     try {
@@ -137,9 +139,9 @@ export default function LyricsViewer({ lyrics, title }: LyricsViewerProps) {
         className="p-6 sm:p-8"
         style={{ background: 'linear-gradient(180deg, #FFFBF5, #FDF6EC)' }}
       >
-        {chunkLines(lyrics, 4).map((chunk, i) => {
+        {chunks.map((chunk, i) => {
           const text = chunk.replace(/\n$/, '');
-          if (isMarkerLine(text)) {
+          if (isMarkerLine(text, refrainCounts)) {
             return (
               <div
                 key={i}
@@ -213,16 +215,46 @@ function isHeadingLine(text: string): boolean {
 
 // A short line wrapped in danda brackets, e.g. "॥ दोहा ॥" or "॥ चौपाई ॥",
 // is treated as a section marker (a different visual style from headings).
-function isMarkerLine(text: string): boolean {
+function isBracketedMarker(text: string): boolean {
   if (text.includes('\n')) return false;
   const trimmed = text.trim();
   if (trimmed.length === 0 || trimmed.length > 40) return false;
   return /^॥.*॥$/.test(trimmed);
 }
 
+// A short standalone line ending in a danda (॥), such as a repeating aarti
+// refrain like "ॐ जय शिव ओंकारा॥", is also treated as a marker — but only
+// when it recurs often (3+ times) across the lyrics. A lower bar of 2 would
+// also catch an ordinary couplet that happens to bookend the song (repeated
+// once at the start and again at the end), which is not a refrain.
+function isRefrainLine(text: string, refrainCounts: Map<string, number>): boolean {
+  if (text.includes('\n')) return false;
+  const trimmed = text.trim();
+  if (trimmed.length === 0 || trimmed.length > 40) return false;
+  if (!trimmed.endsWith('॥')) return false;
+  return (refrainCounts.get(trimmed) ?? 0) >= 3;
+}
+
+function isMarkerLine(text: string, refrainCounts: Map<string, number>): boolean {
+  return isBracketedMarker(text) || isRefrainLine(text, refrainCounts);
+}
+
+// Counts occurrences of each non-blank, non-heading line (trimmed) so
+// isRefrainLine can spot lines that repeat across the lyrics.
+function countLineOccurrences(text: string): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const line of text.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || isHeadingLine(line) || isBracketedMarker(line)) continue;
+    counts.set(trimmed, (counts.get(trimmed) ?? 0) + 1);
+  }
+  return counts;
+}
+
 // Chunks lyrics into groups of `size` non-blank lines, adding a 20px gap
 // after each group — unless the source already has a blank line there.
-function chunkLines(text: string, size: number): string[] {
+function chunkLines(text: string, size = 4): string[] {
+  const refrainCounts = countLineOccurrences(text);
   const lines = text.split('\n');
   const chunks: string[] = [];
   let current: string[] = [];
@@ -240,7 +272,7 @@ function chunkLines(text: string, size: number): string[] {
     }
     // Force a heading/marker line to always stand alone as its own chunk,
     // even mid-group, so it can render with its distinct style.
-    const isStandalone = isHeadingLine(line) || isMarkerLine(line);
+    const isStandalone = isHeadingLine(line) || isMarkerLine(line, refrainCounts);
     if (isStandalone && current.length > 0) {
       flush(false);
     }
