@@ -5,7 +5,9 @@ import Image from 'next/image';
 import { useTranslation } from '@/lib/i18n';
 
 // Toggle this off once Ganesh Chaturthi ends to revert to the default hero.
-const GANESH_CHATURTHI_MODE = true;
+const GANESH_CHATURTHI_MODE = false;
+// Toggle this off once Pitru Paksha ends to revert to the default hero.
+const PITRU_PAKSHA_MODE = true;
 
 interface HeroSectionProps {
   bhajanAartiCount?: number;
@@ -14,10 +16,30 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ bhajanAartiCount = 0, kathaCount = 0, deityCount = 0 }: HeroSectionProps) {
+  if (PITRU_PAKSHA_MODE) {
+    return <PitruPakshaHero />;
+  }
   if (GANESH_CHATURTHI_MODE) {
     return <GaneshHero bhajanAartiCount={bhajanAartiCount} kathaCount={kathaCount} deityCount={deityCount} />;
   }
   return <DefaultHero />;
+}
+
+function PitruPakshaHero() {
+  return (
+    <section className="relative w-full overflow-hidden" style={{ background: '#1A0A00' }}>
+      <div className="relative w-full" style={{ aspectRatio: '2172 / 724' }}>
+        <Image
+          src="/uploads/1790434631000-pitru-paksha-hero.png"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+      </div>
+    </section>
+  );
 }
 
 function DefaultHero() {
