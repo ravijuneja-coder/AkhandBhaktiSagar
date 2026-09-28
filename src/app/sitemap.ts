@@ -3,7 +3,7 @@ import { getAllPostSlugs, getAllDeities } from '@/lib/queries';
 import { contentTypeToUrl } from '@/lib/types';
 import { ContentType } from '@prisma/client';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://akhandbhaktisagar.com';
+const siteUrl = 'https://www.akhandbhaktisagar.com';
 
 const staticRoutes = [
   { path: '', priority: 1.0, freq: 'daily' as const },
